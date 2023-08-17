@@ -1,0 +1,100 @@
+{% extends "schadensrechnung/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+    <!-- ======= Contact Section ======= -->
+    <section id="services" style="margin-top:35px;" class="contact section-bg">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>Information Page</h2>
+                <h4 style="color: orange;"> Wait Downloading...</h4>
+                <p>Pdf should be automatic download. If problem downloading then press download again.</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 mt-5 mt-lg-0 d-flex align-items-stretch">
+                    <form action="{% url 'download_sendung' %}" method="POST" class="php-email-form_new" id="downloading_form">
+                        {% csrf_token %}
+                        <input type="hidden" name="Auftrag_id" id="Auftrag_id" value="{{Auftrag_id}}">
+                        <input type="hidden" name="Adresszeile" id="Adresszeile" value="{{Adresszeile}}">
+                        <input type="hidden" name="Hausnummer" id="Hausnummer" value="{{Hausnummer}}">
+                        <input type="hidden" name="Stadt" id="Stadt" value="{{Stadt}}">
+                        <input type="hidden" name="Postleitzahl" id="Postleitzahl" value="{{Postleitzahl}}">
+                        <input type="hidden" name="email" id="email" value="{{ email }}">
+                        <input type="hidden" name="vorname_nachname" id="vorname_nachname" value="{{ vorname_nachname }}">
+                        <div class="text-center"><button type="submit">Download Again</button></div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="container" data-aos="fade-up" style="margin-top:30px;">
+
+        <div class="section-title" style="text-align: left;">
+            <p>1. Anwendbarkeit&nbsp;<br />
+            &bull; 1.1. Diese Bedingungen des Vertrags sind wirksam zwischen Handy/EDV Store Zirl e.U. (nachfolgend uns oder Dienstleister genannt) und sowohl nat&uuml;rlichen als auch juristischen Personen (nachfolgend Kunde oder Auftraggeber genannt) im Rahmen des aktuellen Vertragsverh&auml;ltnisses sowie jeglicher zuk&uuml;nftigen Gesch&auml;ftsbeziehungen, unabh&auml;ngig davon, ob sie ausdr&uuml;cklich in einzelnen oder zuk&uuml;nftigen erg&auml;nzenden oder nachfolgenden Auftr&auml;gen erw&auml;hnt werden.&nbsp;<br />
+            &bull; 1.2. Unsere Allgemeinen Vertragsbedingungen treten in Kraft bei Vertragsabschluss.&nbsp;<br />
+            &bull; 1.3. Unser grundlegender Vertragsabschluss basiert auf unseren Allgemeinen Vertragsbedingungen. Sie kommen in Erg&auml;nzung zu den von uns festgelegten oder vereinbarten Vertragsbedingungen (z.B. Dienstleistungs- und Reparaturbedingungen f&uuml;r Verbraucher) zur Anwendung.&nbsp;<br />
+            &bull; 1.4. Die Gesch&auml;ftsbedingungen des Kunden oder Modifikationen bzw. Erg&auml;nzungen unserer Allgemeinen Vertragsbedingungen bed&uuml;rfen unserer expliziten schriftlichen Zustimmung zur G&uuml;ltigkeit.&nbsp;<br />
+            &bull; 1.5. Gesch&auml;ftsbedingungen des Kunden werden nicht akzeptiert, selbst wenn wir ihnen nach Erhalt nicht explizit widersprechen.&nbsp;<br />
+            &bull; 1.6. Die Dienstleistungs- und Reparaturbedingungen sind ein unverzichtbarer Teil des von uns angenommenen Reparaturauftrags und mit der Unterzeichnung eines Dienstleistungsvertrages akzeptiert der Kunde diese Bedingungen. Wir streben an, Auftr&auml;ge z&uuml;gig abzuwickeln und Terminabsprachen nach M&ouml;glichkeit einzuhalten. Vollendungstermine sind prinzipiell nicht bindend, wodurch m&ouml;gliche Verz&ouml;gerungen keine Anspr&uuml;che auf Schadenersatz begr&uuml;nden. Wir machen darauf aufmerksam, dass auch aus Verz&ouml;gerungen von Lieferterminen (z.B. aufgrund von Beschaffung von Ersatzteilen, unvorhergesehenen Kapazit&auml;tsschwankungen, etc.) keine Anspr&uuml;che auf Schadenersatz entstehen k&ouml;nnen. Sollte der Kunde die Reparatur vor Vollendung zur&uuml;ckziehen und die Instandsetzung bereits begonnen haben, werden die bis zu diesem Zeitpunkt angefallenen Kosten, maximal &euro; 102,&ndash; inkl. Ust / Arbeitsstunde, in Rechnung gestellt. Bei Ablehnung des Auftrags &uuml;bernehmen wir keine Haftung f&uuml;r Folgesch&auml;den; eine vollst&auml;ndige Wiederherstellung des Ger&auml;tes in den Zustand zum Zeitpunkt der Abgabe kann nicht immer garantiert werden.</p>
+            <p>2. Abwicklung von Versand und Abholung<br />
+            2.1. Der Versender tr&auml;gt die Verantwortung f&uuml;r die sachgem&auml;&szlig;e Verpackung der Artikel. Originalverpackungen, SIM- und Speicherkarten sowie jedes zus&auml;tzliche Zubeh&ouml;r, das nicht in direktem Zusammenhang mit dem gemeldeten Fehler steht, sollen nicht mitgeschickt werden. Eine vorzeitige R&uuml;cksendung dieser Gegenst&auml;nde ist nicht m&ouml;glich und wir &uuml;bernehmen keine Haftung f&uuml;r Sch&auml;den oder Verlust, au&szlig;er in F&auml;llen von Vorsatz oder grober Fahrl&auml;ssigkeit. Da unsere Versandbox speziell angefertigt ist, k&ouml;nnen wir Originalverpackungen nicht zur&uuml;cksenden. Sollte dies dennoch gew&uuml;nscht werden, sind die Kosten f&uuml;r den Aufwand und den Versand vom Kunden zu tragen. Diese werden pauschal mit EUR 9,80 inkl. Ust. berechnet.<br />
+            2.2. Wir &uuml;bernehmen die Versandkosten f&uuml;r eine einfache, versicherte Inlandssendung (bei der ersten Zustellung). S&auml;mtliche Kosten, die durch Sondervereinbarungen zwischen Handy/EDV Store Zirl e.U. und dem Auftraggeber entstehen, wie beispielsweise Expressversand, Auslandsversand, Versand durch einen anderen Versanddienstleister, Zahlung per Nachnahme etc., sind vom Kunden zu begleichen.<br />
+            2.3. Abholauftrag &uuml;ber einen Versanddienstleister: Wenn wir beauftragt werden, ein Ger&auml;t des Auftraggebers abzuholen, erfolgt dies durch die Beauftragung eines externen Versanddienstleisters (Post AG). Sollte der Auftraggeber zum vereinbarten Lieferzeitfenster nicht angetroffen werden, wird jeder zus&auml;tzliche Abholversuch pauschal mit EUR 12,- inkl. Ust. berechnet.</p>
+            <p>3. Annahmeprozess von Reparaturarbeiten<br />
+            3.1. Bei der Annahme einer Reparatur erh&auml;lt der Kunde eine Auftragsbest&auml;tigung entweder als Ausdruck oder per E-Mail, auf der die zur Reparatur &uuml;bergebenen Ger&auml;te und deren Zubeh&ouml;rteile aufgef&uuml;hrt sind. Der Kunde ist daf&uuml;r verantwortlich, keine SIM- oder Speicherkarten beizulegen, es sei denn, diese sind zur Fehlerdiagnose unbedingt notwendig.<br />
+            3.2. Durch die &Uuml;bergabe des Ger&auml;ts best&auml;tigt der Kunde ausdr&uuml;cklich und unwiderruflich, dass er der rechtm&auml;&szlig;ige Eigent&uuml;mer des Ger&auml;ts ist oder dass er vom Eigent&uuml;mer berechtigt wurde, das Ger&auml;t zur Reparatur einzureichen. Der Kunde wird uns vor jeglichen Anspr&uuml;chen Dritter, die gegen uns geltend gemacht werden k&ouml;nnten, sch&uuml;tzen und freistellen.<br />
+            3.3. Defekte Teile, die von uns w&auml;hrend einer Reparatur ersetzt werden, gehen automatisch und ohne zus&auml;tzliche Kosten in unser Eigentum &uuml;ber, sofern nicht bei der Abgabe der Reparatur schriftlich anders vereinbart wurde.</p>
+            <p>4. Angebote, Kostenvoranschlagslimits und Kostenvoranschl&auml;ge<br />
+            4.1. Unsere Angebote oder Kostenvoranschlagslimits sind freibleibend und ohne Garantie.<br />
+            4.2. Zusicherungen, Garantien und Vereinbarungen, die von diesen AGB abweichen und von uns im Kontext des Vertragsabschlusses gemacht werden, werden erst durch unsere schriftliche Best&auml;tigung verbindlich.<br />
+            4.3. Informationen &uuml;ber unsere Produkte und Dienstleistungen, die in Katalogen, Preislisten, Prospekten, Anzeigen an Messest&auml;nden, Rundschreiben, Werbeaussendungen oder anderen Medien (Informationsmaterial) und nicht uns zugeschrieben sind, m&uuml;ssen vom Kunden &ndash; sofern diese seiner Entscheidung zur Beauftragung zugrunde gelegt werden &ndash; uns vorgelegt werden. Nur in diesem Fall k&ouml;nnen wir deren Richtigkeit kommentieren. Wenn der Kunde dieser Verpflichtung nicht nachkommt, sind solche Angaben unverbindlich, es sei denn, sie wurden ausdr&uuml;cklich schriftlich zum Vertragsinhalt erkl&auml;rt.<br />
+            4.4. Das Angebot oder Kostenvoranschlagslimit wird vom Kunden mit der Unterzeichnung des Reparaturauftrages unwiderruflich angenommen.<br />
+            4.5. Unsere Kostenvoranschl&auml;ge sind ausdr&uuml;cklich unverbindlich und ohne Garantie. Bei Abweichungen wird ein neuer Kostenvoranschlag erstellt. Bei Ablehnung durch den Kunden wird die jeweilige Pauschale f&uuml;r den Kostenvoranschlag in Rechnung gestellt, maximal jedoch mit &euro; 102,- inkl. Ust pro Arbeitsstunde. Sollte wider Erwarten eine Reparatur nicht m&ouml;glich sein, wird das Ger&auml;t unter Anrechnung der jeweils g&uuml;ltigen Kostenvoranschlagspauschale (Stand Juli 2023: &euro; 40,- inkl. Ust. (bei Handys &amp; Smartphones), &euro; 70,- inkl. Ust. (bei Tablets, Notebooks und PCs) unrepariert retourniert.<br />
+            4.6. F&uuml;r die Erstellung eines Kostenvoranschlags berechnen wir bei Ablehnung eine Pauschale (Stand Juli 2023: &euro; 40,- inkl. Ust. (bei Handys &amp; Smartphones), &euro; 70,- inkl. Ust. (bei Tablets, Notebooks und PCs). Sollten die Reparaturkosten aus unserer Sicht im Verh&auml;ltnis zum Wert des Reparaturgegenstandes sehr hoch sein, erstellen wir auch in diesem Fall einen Kostenvoranschlag. Bei Ablehnungen wird auch in diesem Fall die jeweils g&uuml;ltige Pauschale f&uuml;r den Kostenvoranschlag berechnet.<br />
+            4.7. Kostenvoranschl&auml;ge behalten 15 Tage ab Erstellungsdatum ihre G&uuml;ltigkeit. Wenn bis dahin keine R&uuml;ckmeldung erfolgt, gehen wir davon aus, dass eine Reparatur nicht gew&uuml;nscht ist, senden das Ger&auml;t unrepariert zur&uuml;ck und berechnen die oben genannte Kostenvoranschlagspauschale. Ab diesem Zeitpunkt wird die Pauschale f&uuml;r den Kostenvoranschlag in keinem Fall mehr gutgeschrieben. Bei Ablehnung des Auftrags &uuml;bernehmen wir keine Haftung f&uuml;r Folgesch&auml;den; eine vollst&auml;ndige Wiederherstellung des Ger&auml;ts in den Zustand zum Zeitpunkt der Abgabe ist nicht immer m&ouml;glich.<br />
+            4.8. Die Benachrichtigung des Kunden erfolgt schriftlich, je nach Verf&uuml;gbarkeit per SMS oder E-Mail.</p>
+            <p>5. R&uuml;cktransport und Abholung<br />
+            5.1. Die unverbindlich genannten Liefertermine sind so zu verstehen, dass das Ger&auml;t zu diesem Zeitpunkt unseren Betrieb verlassen hat oder dass dem Kunden die Versandbereitschaft mitgeteilt wurde. Die Lieferung setzt voraus, dass der Kunde all seinen vertraglichen Verpflichtungen nachkommt bzw. nachgekommen ist. Der Kunde muss uns insbesondere alle f&uuml;r die Durchf&uuml;hrung erforderlichen Informationen, Parameter und sonstigen technischen Angaben rechtzeitig mitteilen.<br />
+            5.2. Die Verpackung und deren Inhalt m&uuml;ssen vom Empf&auml;nger sofort bei Erhalt auf m&ouml;gliche Transportsch&auml;den und Vollst&auml;ndigkeit &uuml;berpr&uuml;ft werden. Bei Sch&auml;den muss uns dies unverz&uuml;glich schriftlich gemeldet werden (sp&auml;testens innerhalb von 2 Tagen nach Erhalt).<br />
+            5.3. Bei Abholung des Ger&auml;ts kann dieses nur gegen Vorlage des Auftragsscheines ausgeh&auml;ndigt werden. Sollte dieser nicht vorgelegt werden k&ouml;nnen, behalten wir uns das Recht vor, Ger&auml;te nur gegen Vorlage eines amtlichen Lichtbildausweises auszuh&auml;ndigen. Ger&auml;te oder Teile, die zur Reparatur oder zum Service &uuml;bergeben wurden und trotz zweifacher Mitteilung und Mahnung an den Kunden nicht innerhalb von 8 Wochen nach Fertigstellung abgeholt wurden, werden ohne weitere Benachrichtigung entweder an ein Inkassob&uuml;ro zur Durchsetzung der offenen Forderungen weitergegeben oder ohne jegliche Ersatzleistung als Altmaterial entsorgt oder einer anderen Verwertung zugef&uuml;hrt.</p>
+            <p>6. Preise<br />
+            6.1. Preisangaben sind grunds&auml;tzlich nicht als Pauschalpreis zu verstehen.<br />
+            6.2. F&uuml;r vom Kunden angeordnete Leistungen, die im urspr&uuml;nglichen Auftrag keine Deckung finden, besteht mangels Werklohnvereinbarung ein Anspruch auf angemessenes Entgelt.<br />
+            6.3. Preisangaben verstehen sich zuz&uuml;glich der jeweils geltenden gesetzlichen Umsatzsteuer und ab Lager.<br />
+            6.4. Die Preise setzen sich aus dem jeweiligen Materialaufwand und der jeweiligen Arbeitszeit zusammen. Die H&ouml;he der Arbeitszeit h&auml;ngt vom jeweiligen Reparaturlevel und vom Ger&auml;temodell ab. Grunds&auml;tzlich ist vereinbart, dass bei Reparaturen von Mobilfunkger&auml;ten und Tablets mindestens eine 20-min&uuml;tige Arbeitszeit verrechnet werden darf. Bei Ger&auml;temodellen, die geklebt sind, k&ouml;nnen mindestens 30 Minuten abgerechnet werden, da der Arbeitsaufwand im Vergleich zu verschraubten Ger&auml;ten h&ouml;her ist. Zus&auml;tzlich k&ouml;nnen maximal 15 Minuten f&uuml;r die Auftragserfassung bzw. Administration hinzugerechnet werden. Die Verrechnung erfolgt unabh&auml;ngig vom tats&auml;chlichen Arbeitszeitaufwand. (Stand Juli 2023: Arbeitsleistung &euro; 102,&ndash; inkl. USt / pro Stunde)<br />
+            6.5. Verpackungs-, Transport-, Verladungs- und Versandkosten sowie Zoll und Versicherung gehen zu Lasten des Kunden. Wir sind nur bei ausdr&uuml;cklicher Vereinbarung verpflichtet, Verpackungen zur&uuml;ckzunehmen.<br />
+            6.6. Die fach- und umweltgerechte Entsorgung von Altmaterial hat der Kunde zu veranlassen. Werden wir gesondert hiermit beauftragt, ist dies vom Kunden zus&auml;tzlich im hierf&uuml;r vereinbarten Ausma&szlig; zu verg&uuml;ten. Mangelt es an einer solchen Entgeltsvereinbarung, so ist ein angemessenes Entgelt zu leisten.</p>
+            <p>7. Reparatur<br />
+            7.1 Im Zuge der Reparatur kann es vorkommen, dass am Ger&auml;t leichte &Ouml;ffnungsspuren entstehen (z.B. Lackabplatzer oder kleine Absch&uuml;rfungen). F&uuml;r solche optischen Ver&auml;nderungen &uuml;bernehmen wir keine Haftung.<br />
+            7.2. Bei der Reparatur wird stets auf die Verwendung von qualitativ hochwertigen Ersatzteilen geachtet. Sollten dennoch Unregelm&auml;&szlig;igkeiten oder Defekte auftreten, sind diese uns unverz&uuml;glich zu melden (sp&auml;testens innerhalb von 2 Tagen nach Erhalt).</p>
+            <p>8. Beigestellte Ware<br />
+            8.1. F&uuml;r vom Kunden beigestellte Materialien oder Teile &uuml;bernehmen wir keine Gew&auml;hrleistung. Es obliegt dem Kunden, die Eignung und Qualit&auml;t dieser Materialien oder Teile sicherzustellen. Jegliche Haftung f&uuml;r M&auml;ngel, die auf der Verwendung solcher vom Kunden bereitgestellten Materialien oder Teile zur&uuml;ckzuf&uuml;hren sind, ist ausgeschlossen.</p>
+            <p>9. Zahlungsbedingungen<br />
+            9.1. Ein Abzug von Skonto ist nur zul&auml;ssig, wenn dies explizit schriftlich vereinbart wurde.<br />
+            9.2. Von uns werden spezifische Zahlungsanweisungen des Kunden auf &Uuml;berweisungstr&auml;gern nicht anerkannt.<br />
+            9.3. Bei Zahlungsverzug des Kunden hinsichtlich anderer Vertr&auml;ge mit uns, behalten wir uns das Recht vor, unsere Leistungen aus dem aktuellen Vertrag auszusetzen, bis der Kunde seine Zahlungsverpflichtungen erf&uuml;llt hat.<br />
+            9.4. Zudem sind wir in einem solchen Fall berechtigt, alle ausstehenden Forderungen f&uuml;r bereits erbrachte Leistungen aus der laufenden Gesch&auml;ftsbeziehung sofort f&auml;llig zu stellen.<br />
+            9.5. Wenn der Kunde die Zahlungsfrist auch nur f&uuml;r eine einzelne Teilleistung &uuml;berschreitet, werden jegliche Verg&uuml;nstigungen (Rabatte, Abschl&auml;ge, etc.) hinf&auml;llig und zum Rechnungsbetrag hinzugef&uuml;gt.<br />
+            9.6. Bei Zahlungsverzug verpflichtet sich der Kunde, die zur Eintreibung der Forderung notwendigen und angemessenen Kosten (wie Mahngeb&uuml;hren, Inkassogeb&uuml;hren, Anwaltskosten, etc.) zu erstatten. Bei Zahlungsverzug werden Verzugszinsen in H&ouml;he von mindestens 6% &uuml;ber dem Diskontsatz der &Ouml;sterreichischen Nationalbank, jedoch mindestens 12% p.a. berechnet.<br />
+            9.7. Der Kunde hat das Recht zur Aufrechnung nur, wenn seine Gegenanspr&uuml;che rechtskr&auml;ftig festgestellt wurden.</p>
+            <p>10. Durchf&uuml;hrung der Dienstleistung<br />
+            10.1. Geringf&uuml;gige, dem Kunden zumutbare und sachlich gerechtfertigte &Auml;nderungen in unserer Dienstleistungsausf&uuml;hrung werden als vorab genehmigt betrachtet.<br />
+            10.2. Sollte nach der Auftragsvergabe aus beliebigen Gr&uuml;nden eine Ab&auml;nderung oder Erg&auml;nzung des Auftrages erfolgen, wird die Liefer- bzw. Leistungsfrist angemessen verl&auml;ngert.<br />
+            10.3. Sollte der Kunde nach Vertragsabschluss eine k&uuml;rzere Frist f&uuml;r die Durchf&uuml;hrung der Dienstleistung w&uuml;nschen, stellt dies eine Vertrags&auml;nderung dar, die zu Mehrkosten f&uuml;hren kann. Diese werden dem Kunden in Rechnung gestellt.</p>
+        </div>
+
+    </div>
+    </section>
+
+
+<script>
+    console.log('submitting...');
+    document.getElementById("downloading_form").submit();
+</script>
+
+{% endblock content %}

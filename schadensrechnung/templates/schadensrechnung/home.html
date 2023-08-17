@@ -1,0 +1,355 @@
+{% extends "schadensrechnung/base.html" %}
+{% load static %}
+{% block content %}
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+  
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
+                data-aos="fade-up" data-aos-delay="200">
+                <h1>Förderaktion Reparaturbonus</h1>
+                <h2>Reparieren Sie Ihr altes Smartphone, sparen Sie dabei 50% der Kosten und schützen damit die Umwelt! Ab 25. September wieder einlösbar!!
+                </h2>
+                <div class="d-flex justify-content-center justify-content-lg-start">
+                    <a href="#services" class="btn-get-started scrollto">Reparaturkosten berechnen ➦</a>
+                    <!-- <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox btn-watch-video"><i
+                            class="bi bi-play-circle"></i><span>Erklärungsvideo</span></a> -->
+                </div>
+            </div>
+            <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+                <img src="{% static 'schadensrechnung/img/hero-img.png' %}" class="img-fluid animated" alt="">
+            </div>
+        </div>
+    </div>
+  
+  </section><!-- End Hero -->
+  
+  <main id="main">
+
+    <!-- ======= Clients Section ======= -->
+    <section id="clients" class="clients section-bg">
+        <div class="container">
+
+            <div class="row" data-aos="zoom-in">
+
+                <div class="col-lg-4 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                    <img src="{% static 'schadensrechnung/img/clients/logo_repbon.png' %}" class="img-fluid" alt="">
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                    <img src="{% static 'schadensrechnung/img/clients/bundesministerium.png' %}" class="img-fluid"
+                        alt="">
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                    <img src="{% static 'schadensrechnung/img/clients/eu.png' %}" class="img-fluid" alt="">
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- End Cliens Section -->
+
+    <!-- ======= About Us Section   mx-auto======= style="width: 18rem;" -->
+    <section id="about" class="about">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>Wie funktioniert's?</h2>
+            </div>
+
+            <div class="row content">
+                <div class="col-lg-4">
+                    <div class="card text-center border-0">
+                        <center>
+                            <img src="{% static 'schadensrechnung/img/about/smartphone.png' %}"
+                                style="height: 150px; width: 150px;" alt="Image">
+                        </center>
+                        <div class="card-body">
+                            <h5 class="card-title">Schadenseingabe</h5>
+                            <p class="card-text">Geben Sie die Daten Ihres defekten Handys ein.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 pt-4 pt-lg-0">
+                    <div class="card text-center border-0">
+                        <center>
+                            <img src="{% static 'schadensrechnung/img/about/schraubendreher.png' %}"
+                                class="card-img-top center" style="height: 150px; width: 150px;" alt="Image">
+                        </center>
+                        <div class="card-body">
+                            <h5 class="card-title">Zur Reparatur einsenden</h5>
+                            <p class="card-text">Erhalten Sie einen vorläufigen Kostenvoranschlag und senden Sie uns Ihr
+                                Handy.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 pt-4 pt-lg-0">
+                    <div class="card text-center border-0">
+                        <center>
+                            <img src="{% static 'schadensrechnung/img/about/schnelle-lieferung.png' %}"
+                                class="card-img-top center" style="height: 150px; width: 150px;" alt="Image">
+                        </center>
+                        <div class="card-body">
+                            <h5 class="card-title">Abschluss</h5>
+                            <p class="card-text">Wir reparieren Ihr Handy und senden es Ihnen nach der Bezahlung zurück.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section><!-- End About Us Section -->
+
+
+    <!-- ======= Contact Section ======= -->
+    <section id="services" class="contact section-bg">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>Reparaturkosten berechnen</h2>
+                <p>Geben Sie hier Ihr Handy Model und die Schadensart an und wir berechnen für Sie die vorausichtlichen Kosten.
+                </p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 mt-5 mt-lg-0 d-flex align-items-stretch">
+                    <form onsubmit="return validateForm();" action="{% url 'marke_model' %}" method="POST" class="php-email-form_new"><!--  id="schadenForm">-->
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="form-group col-12">
+                                <label for="marke">Marke</label>
+                                <select class="form-select" id="marke" name="marke" onchange="fetchHandyName(this.value)" required>
+                                    <option value="0">Bitte wählen Sie einen Hersteller ...</option>
+                                    <option value="Apple">Apple</option>
+                                    <option value="Samsung">Samsung</option>
+                                    <option value="Huawei">Huawei</option>
+                                    <option value="Xiaomi">Xiaomi</option>
+                                    <option value="OnePlus">OnePlus</option>
+                                    <option value="Google">Google</option>
+                                    <option value="HTC">HTC</option>
+                                    <option value="LG">LG</option>
+                                    <option value="Nokia">Nokia</option>
+                                    <option value="Sony">Sony</option>
+                                    <option value="Vivo">Vivo</option>
+                                    <option value="Oppo">Oppo</option>
+                                    <option value="Sonstige Modelle">Sonstige Modelle</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="model">Model</label>
+                                <select class="form-select" id="model" name="model" onchange="setHandyName(this.value)" disabled>
+                                    <option value="0">Bitte wählen Sie ein Model ...</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="art">Schadensart</label>
+                            <select class="form-select" id="art" name="art" onchange="show_schadensartPreis(this.value)" disabled>
+                                <option value="0">Bitte wählen Sie die Schadensart ...</option>
+<!--                                <option value="1">Display & Touchscreen</option>-->
+<!--                                <option value="2">Akku bzw. Batterieaustausch</option>-->
+<!--                                <option value="3">Ladestecker bzw. Ladebuchse</option>-->
+<!--                                <option value="4">Ohrlautsprecher</option>-->
+<!--                                <option value="5">Mikrofon</option>-->
+<!--                                <option value="6">Hauptkamera</option>-->
+<!--                                <option value="7">Frontkamera (Selfie)</option>-->
+<!--                                <option value="8">Kamera-Glas (Abdeckung-Rückseite)</option>-->
+<!--                                <option value="9">Klingeltonlautsprecher</option>-->
+<!--                                <option value="10">Kopfhöreranschluss</option>-->
+<!--                                <option value="11">Fehleranalyse & Kostenvoranschlag</option>-->
+<!--                                <option value="12">Software Fehler</option>-->
+<!--                                <option value="13">Sonstige Reparaturen</option>-->
+                            </select>
+                        </div>
+                        <div class="form-group" id="desciption" style="display: none;">
+                            <label for="beschreibung">Beschreibung</label>
+                            <textarea class="form-control" id="beschreibung" rows="10"></textarea>
+                        </div>
+
+
+                        <div id="preistag" style="display: none;">
+                            <h1 class="text-center" style="color:rgb(6,150,92); margin:20px; ">€<span class="" id="preis"></span></h1>
+<!--                            <label for="preis_input" class=" requiredField" > Kosten </label>-->
+                            <div style="margin-bottom:20px;">
+                                <input type="hidden" name="preis_input" style="text-align: center;" class="textinput form-control" id="preis_input" readonly>
+                            </div>
+                        </div>
+<!--                        <div class="my-3">-->
+<!--                            <div class="loading">Loading</div>-->
+<!--                            <div class="error-message"></div>-->
+<!--                            <div class="sent-message">Your message has been sent. Thank you!</div>-->
+<!--                        </div>-->
+                        <div class="text-center"><button type="submit">Weiter zur Dateneingabe</button></div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <!-- End Contact Section -->
+</main>
+
+
+<script>
+        function validateForm() {
+            var marke = document.getElementById("marke").value;
+            var model = document.getElementById("model").value;
+            var art = document.getElementById("art").value;
+            if (marke == "0" || model == "0" || art == "0") {
+                return false;
+            }
+        }
+    </script>
+
+
+
+
+<script>
+    var MARKE = '-';
+    var HANDYMODEL = '-';
+    var SCHADEN = '-';
+
+    function fetchHandyName(selectedValue) {
+        set_schadensart_default();
+        console.log('valeynkehincwjiojiowejiweoi');
+        console.log(selectedValue);
+        if (selectedValue == '0'){
+            var x = document.getElementById("model");
+            var y = document.getElementById("art");
+            var z = document.getElementById("desciption");
+            x.disabled = true;
+            y.disabled = true;
+            z.style.display = 'none';
+        }else{
+            document.getElementById("art").disabled = true;
+
+            // Make an AJAX request to fetch the options for the second dropdown
+        fetch('/get_handy_namen/?selected_value=' + selectedValue)
+            .then(response => response.json())
+            .then(data => updateSecondDropdown(data.options))
+            .catch(error => console.error('Error:', error));
+            document.getElementById("model").removeAttribute("disabled");
+            MARKE = selectedValue;
+        }  
+    }
+
+
+    function setHandyName(selectedValue) {
+        console.log('monnaa');
+        console.log(selectedValue);
+        set_schadensart_default();
+        if (selectedValue == '0'){
+            console.log('nononono');
+            var y = document.getElementById("art");
+            var z = document.getElementById("desciption");
+            y.disabled = true;
+            z.style.display = 'none';
+        }else{
+            console.log('nononono');
+            HANDYMODEL = selectedValue;
+            document.getElementById("art").removeAttribute("disabled");
+
+            // Make an AJAX request to fetch the options for the second dropdown
+            var encodedValue = encodeURIComponent(selectedValue);
+            //console.log(encodedValue);
+            fetch('/get_schadensart/?selected_value=' + encodedValue)
+                .then(response => response.json())
+                .then(data => updatethirdDropdown(data.options))
+                .catch(error => console.error('Error:', error));
+        }
+    }
+
+
+    function updatethirdDropdown(options) {
+        console.log('option monna');
+        console.log(options);
+        const thirdDropdown = document.getElementById('art');
+        thirdDropdown.innerHTML = ''; // Clear existing options
+
+        // Add the new options to the second dropdown
+        options.forEach(option => {
+            const optionElement = document.createElement('option');
+            optionElement.value = option.value;
+            optionElement.text = option.label;
+            thirdDropdown.appendChild(optionElement);
+        });
+    }
+
+
+    function show_schadensartPreis(data){
+        console.log(data);
+        var x = document.getElementById("desciption");
+        var preistag = document.getElementById("preistag");
+        var preis = document.getElementById("preis");
+        preis.innerHTML = data;
+        preis_input.value = data;
+        preistag.style.display = "block";
+
+    }
+
+    function fetchPreis(selectedValue) {
+        console.log('llllllllllllllllllllllllll');
+        // Make an AJAX request to fetch the options for the second dropdown
+        fetch('/get_preis/?selected_value=' + selectedValue + '&model=' + HANDYMODEL)
+            .then(response => response.json())
+            .then(data => show_preis(data))
+            .catch(error => console.error('Error:', error));
+    }
+
+
+
+
+
+
+    function updateSecondDropdown(options) {
+        console.log('option monna');
+        console.log(options);
+        const secondDropdown = document.getElementById('model');
+        secondDropdown.innerHTML = ''; // Clear existing options
+
+        // Add the new options to the second dropdown
+        options.forEach(option => {
+            const optionElement = document.createElement('option');
+            optionElement.value = option.value;
+            optionElement.text = option.label;
+            secondDropdown.appendChild(optionElement);
+        });
+    }
+
+
+    function show_preis(data) {
+        var x = document.getElementById("desciption");
+        var preistag = document.getElementById("preistag");
+        var preis = document.getElementById("preis");
+        if(data.sonstiges == 1){
+            x.style.display = "block";
+        }else{
+            x.style.display = "none";
+        }
+
+        if(data.preis != -1){
+            preis.innerHTML = data.preis;
+            preis_input.value = data.preis;
+            preistag.style.display = "block";
+        }
+
+    }
+
+    function set_schadensart_default(){
+        document.getElementById("desciption").style.display = "none";
+        document.getElementById("preistag").style.display = "none";
+        document.getElementById("art").selectedIndex = 0;
+    }
+</script>
+
+{% endblock content %}

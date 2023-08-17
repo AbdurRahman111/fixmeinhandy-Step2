@@ -1,0 +1,271 @@
+{% extends "schadensrechnung/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<style>
+    .error-message {
+      color: red;
+    }
+</style>
+
+
+<section id="services" class="contact section-bg" style="margin-top:35px;">
+   <div class="container" data-aos="fade-up">
+      <div class="section-title">
+         <h2>Angabe allgemeiner Daten</h2>
+         <p>Bitte beachten Sie folgenden Hinweis: Damit eine eindeutige Identifikation Ihrer Person durchgeführt
+            werden kann, ist eine Bekanntgabe Ihres Vor- und Nachnamens, sowie Ihr Geburtsdatum erforderlich. Ihre
+            Daten werden mit dem Zentralen Melderegister abgeglichen. Bei Angaben zu Ihrem Vor- und Nachnamen ist es
+            deshalb besonders wichtig, dass Sie diesen so anführen, wie er auf Ihrem Meldezettel geschrieben wird.
+            Wir bitten Sie daher, Ihren vollen Namen auszuschreiben und keine Abkürzungen zu verwenden. Wenn Sie
+            einen Doppelnamen haben (bspw. Marie Luise), welcher auf Ihrem Meldezettel nicht mit einem Bindestrich
+            verbunden wird, bedarf es nur der Meldung des ersten Vornamens. Wenn Ihr Name jedoch mit einem
+            Bindestrich geschrieben wird (bspw. Marie-Luise), bitten wir Sie beide Namen anzuführen. Bitte beachten
+            Sie zudem, dass ein akademischer Titel nicht Bestandteil des Vor- oder Nachnamens ist.
+         </p>
+      </div>
+      <form onsubmit="return validateForm()" action="{% url 'kundendaten_get' %}" method="POST" class="php-email-form_new">
+         {% csrf_token %}
+         {% if erorr_message %}
+         <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error:</strong> {{ erorr_message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+         </div>
+         {% endif %}
+         <fieldset class="form-group">
+            <!-- <legend class="border-bottom mb-4">Angabe allgemeiner Daten</legend> -->
+            <div id="div_englishInput_1" class="form-group">
+               <label for="englishInput_vorname" class=" requiredField">
+               Vorname<span class="asteriskField">*</span> </label>
+               <div>
+                  <input type="text" name="vorname" class="textinput textInput form-control"  id="englishInput_vorname" onkeyup="checkInputEnglish('vorname')" value="{{request.user.first_name}}" required="">
+                  <input type="hidden" value="0" name="hidden_input_error_status_vorname" id="hidden_input_error_status_vorname">
+               </div>
+               <span id="mynewmessage_vorname" style="color:red"></span>
+            </div>
+            <div id="div_id_nachname" class="form-group">
+               <label for="englishInput_nachname" class=" requiredField">
+               Nachname<span class="asteriskField">*</span> </label>
+               <div>
+                  <input type="text" name="nachname" maxlength="30" class="textinput textInput form-control" required="" id="englishInput_nachname" value="{{request.user.last_name}}" onkeyup="checkInputEnglish('nachname')">
+                  <input type="hidden" value="0" name="hidden_input_error_status_nachname" id="hidden_input_error_status_nachname">
+               </div>
+               <span id="mynewmessage_nachname" style="color:red"></span>
+            </div>
+            <div id="div_id_email" class="form-group">
+               <label for="englishInput_email" class=" requiredField">
+               Email<span class="asteriskField">*</span> </label>
+               <div> <input type="email" name="email" value="{{request.user.email}}" maxlength="320" class="emailinput form-control" required=""  id="englishInput_email" > </div>
+            </div>
+            <div id="div_id_telefon" class="form-group">
+               <label for="englishInput_telefon" class="">
+               Telefon
+               </label>
+               <div> <input type="number" name="telefon" maxlength="20" class="textinput textInput form-control"  id="englishInput_telefon" value="{% if get_profile.telefon %}{{ get_profile.telefon }}{% endif %}"> </div>
+            </div>
+            <div id="div_id_ort" class="form-group">
+               <label for="englishInput_ort" class=" requiredField">
+               Ort<span class="asteriskField">*</span> </label>
+               <div> <input type="text" name="ort" maxlength="30" class="textinput textInput form-control" required="" id="englishInput_ort" onkeyup="checkInputEnglish('ort')" value="{% if get_profile.ort %}{{ get_profile.ort }}{% endif %}">
+               <input type="hidden" value="0" name="hidden_input_error_status_ort" id="hidden_input_error_status_ort">
+               </div>
+               <span id="mynewmessage_ort" style="color:red"></span>
+            </div>
+            <div id="div_id_Adresszeile" class="form-group">
+               <label for="englishInput_Adresszeile" class=" requiredField">
+               Adresszeile<span class="asteriskField">*</span> </label>
+               <div> <input type="text" name="Adresszeile" maxlength="50" class="textinput textInput form-control" required="" id="englishInput_Adresszeile" onkeyup="checkInputEnglish('Adresszeile')" value="{% if get_profile.Adresszeile %}{{ get_profile.Adresszeile }}{% endif %}">
+               <input type="hidden" value="0" name="hidden_input_error_status_Adresszeile" id="hidden_input_error_status_Adresszeile">
+               </div>
+               <span id="mynewmessage_Adresszeile" style="color:red"></span>
+            </div>
+            <div id="div_id_Hausnummer" class="form-group">
+               <label for="englishInput_Hausnummer" class=" requiredField">
+               Hausnummer<span class="asteriskField">*</span> </label>
+               <div> <input type="text" name="Hausnummer" maxlength="50" class="textinput textInput form-control" required="" id="englishInput_Hausnummer" value="{% if get_profile.Hausnummer %}{{ get_profile.Hausnummer }}{% endif %}"> </div>
+            </div>
+            <div id="div_id_Stadt" class="form-group">
+               <label for="englishInput_Stadt" class=" requiredField">
+               Stadt<span class="asteriskField">*</span> </label>
+               <div> <input type="text" name="Stadt" maxlength="50" class="textinput textInput form-control" required="" id="englishInput_Stadt" onkeyup="checkInputEnglish('Stadt')" value="{% if get_profile.Stadt %}{{ get_profile.Stadt }}{% endif %}">
+               <input type="hidden" value="0" name="hidden_input_error_status_Stadt" id="hidden_input_error_status_Stadt">
+               </div>
+               <span id="mynewmessage_Stadt" style="color:red"></span>
+            </div>
+            <div id="div_id_Postleitzahl" class="form-group">
+               <label for="englishInput_Postleitzahl" class=" requiredField">
+               Postleitzahl<span class="asteriskField">*</span> </label>
+               <div> <input type="number" name="Postleitzahl" class="numberinput form-control" required="" id="englishInput_Postleitzahl" value="{% if get_profile.Postleitzahl %}{{ get_profile.Postleitzahl }}{% endif %}"> </div>
+            </div>
+         </fieldset>
+         <div id="div_geburtsdatum" class="form-group" style="margin-top: -28px">
+            <label for="dob" class=" requiredField">  Geburtsdatum<span class="asteriskField">*</span> <b> (DD.MM.YYYY)</b></label>
+            <div>
+               <input type="text" id="dob" name="geburtsdatum" maxlength="10" class="dateinput form-control"  placeholder="dd.mm.yyyy" value="{% if get_profile.geburtsdatum %}{{ get_profile.geburtsdatum }}{% endif %}" required>
+            </div>
+            <span id="myElement_geburtsdatum" style="color:red;"></span>
+         </div>
+         <div id="div_id_Marke" class="form-group">
+            <label for="id_Marke" class=" requiredField">
+            Marke </label>
+            <div>
+               <input type="text" name="marke" class="textinput form-control" id="id_Marke" value="{{ marke }}" readonly>
+            </div>
+         </div>
+         <div id="div_id_Model" class="form-group">
+            <label for="id_Model" class=" requiredField">
+            Model </label>
+            <div>
+               <input type="text" name="model" value="{{ model }}" class="textinput form-control" id="id_Model" readonly>
+            </div>
+         </div>
+         <div id="div_id_Schadensart" class="form-group">
+            <label for="id_Schadensart" class=" requiredField">
+            Schadensart </label>
+            <div>
+               <input type="text" name="art" value="{{ art }}" class="textinput form-control" id="id_Schadensart" readonly>
+            </div>
+         </div>
+         <div id="div_id_preis_input" class="form-group">
+            <label for="id_preis_input" class=" requiredField">
+            Kosten </label>
+            <div>
+               <input type="text" name="preis_input" value="{{ preis_input }}" class="textinput form-control" id="id_preis_input" readonly>
+            </div>
+         </div>
+         {% if not request.user.is_authenticated %}
+         <div class="form-group">
+            <div class="checkbox">
+               <label><input type="checkbox" id="myCheckbox_account" value="1">  Create Account</label>
+            </div>
+         </div>
+         {% endif %}
+         <div id="password_fields"></div>
+         <div class="form-group">
+            <div class="checkbox">
+               <label><input type="checkbox" value="1" required> <a href="{% url 'terms_condition' %}">AGB's</a> akzeptiert.</label>
+            </div>
+         </div>
+         <span id="myElement" style="color:red;"></span>
+         <div class="form-group" id="submit_button" style="margin-top:10px;">
+            <button type="submit">Reparatur anfragen</button>
+         </div>
+      </form>
+   </div>
+</section>
+
+
+<script>
+function checkInputEnglish(input_id) {
+
+
+
+    var inputElement = document.getElementById("englishInput"+"_"+input_id);
+    var errorMessageElement = document.getElementById("mynewmessage"+"_"+input_id);
+    var errorMessageElement2 = document.getElementById("myElement");
+
+
+    var inputValue = inputElement.value;
+    var sanitizedValue = inputValue.replace(/[^a-zA-Z\s]/g, "");
+
+    if (sanitizedValue !== inputValue) {
+         document.getElementById("hidden_input_error_status_"+input_id).value = 1;
+        errorMessageElement.textContent = input_id+" error : Only English characters are allowed.";
+        errorMessageElement2.textContent = input_id+" error : Only English characters are allowed.";
+        document.getElementById('submit_button').innerHTML = `<button type="submit" style="background-color:#F52C0D;" disabled>Bitte verwenden Sie das richtige Format</button>`;
+    } else {
+         document.getElementById("hidden_input_error_status_"+input_id).value = 0;
+        errorMessageElement.textContent = "";
+        errorMessageElement2.textContent = "";
+        var hidden_input_error_status_vorname = document.getElementById("hidden_input_error_status_vorname").value;
+       var hidden_input_error_status_nachname = document.getElementById("hidden_input_error_status_nachname").value;
+       var hidden_input_error_status_ort = document.getElementById("hidden_input_error_status_ort").value;
+       var hidden_input_error_status_Adresszeile = document.getElementById("hidden_input_error_status_Adresszeile").value;
+       var hidden_input_error_status_Stadt = document.getElementById("hidden_input_error_status_Stadt").value;
+       if (hidden_input_error_status_vorname == 0 && hidden_input_error_status_nachname == 0 && hidden_input_error_status_ort == 0 && hidden_input_error_status_Adresszeile == 0 && hidden_input_error_status_Stadt){
+       document.getElementById('submit_button').innerHTML = `<button type="submit">Reparatur anfragen</button>`;
+       }
+
+    }
+}
+</script>
+
+<script>
+    function validateForm() {
+      const dobInput = document.getElementById('dob');
+      //const dobError = document.getElementById('dob_error');
+      const inputValue = dobInput.value;
+
+      const isValid = /^(\d{2})\.(\d{2})\.(\d{4})$/.test(inputValue);
+      if (isValid) {
+        const [day, month, year] = inputValue.split('.');
+        const parsedDate = new Date(`${year}-${month}-${day}`);
+        const currentDate = new Date();
+
+        if (
+          parsedDate.getDate() == day &&
+          parsedDate.getMonth() == month - 1 &&
+          parsedDate.getFullYear() == year &&
+          parsedDate.getFullYear() >= 1900 && // Minimum year threshold
+          parsedDate <= currentDate
+        )
+        {
+          //dobError.textContent = '';
+          document.getElementById("myElement").innerHTML = "";
+          document.getElementById("myElement_geburtsdatum").innerHTML = "";
+          return true; // Allow form submission
+        }
+        else {
+          //dobError.textContent = 'Invalid date.';
+          document.getElementById("myElement").innerHTML = "Invalid date.";
+          document.getElementById("myElement_geburtsdatum").innerHTML = "Invalid date.";
+          return false; // Prevent form submission
+        }
+      }
+      else {
+        //dobError.textContent = 'Please use the format DD.MM.YYYY';
+        document.getElementById("myElement").innerHTML = "Please use the format DD.MM.YYYY";
+        document.getElementById("myElement_geburtsdatum").innerHTML = "Please use the format DD.MM.YYYY";
+        return false; // Prevent form submission
+      }
+    }
+  </script>
+
+<script>
+
+// Get the checkbox element by its ID
+const checkbox = document.getElementById("myCheckbox_account");
+
+// Function to be executed when the checkbox is changed (checked or unchecked)
+function handleCheckboxChange() {
+    if (checkbox.checked) {
+        // Checkbox is checked (on)
+        console.log("Checkbox is checked!");
+        // Call any other functions or perform actions here
+        document.getElementById('password_fields').innerHTML = `<div id="div_id_password" class="form-group">
+                <label for="id_password" class=" requiredField"> Password </label>
+                <div>
+                    <input type="password" name="password" class="textinput form-control" id="id_password">
+                </div>
+            </div>
+            <div id="div_id_confirm_password" class="form-group">
+                <label for="id_confirm_password" class=" requiredField"> Confirm Password </label>
+                <div>
+                    <input type="password" name="confirm_password" class="textinput form-control" id="id_confirm_password">
+                </div>
+            </div>`;
+    } else {
+        // Checkbox is unchecked (off)
+        console.log("Checkbox is unchecked!");
+        // Call any other functions or perform actions here
+        document.getElementById('password_fields').innerHTML = "";
+    }
+}
+
+// Attach the event listener to the checkbox element
+checkbox.addEventListener("change", handleCheckboxChange)
+</script>
+
+
+{% endblock content %}

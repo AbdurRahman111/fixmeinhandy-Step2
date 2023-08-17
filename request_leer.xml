@@ -1,0 +1,43 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:post="http://post.ondot.at" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:core="http://Core.Model" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <post:ImportShipment>
+         <post:row>
+            <post:ClientID>21233841</post:ClientID>
+            <post:ColloList>
+               <post:ColloRow>
+                  <post:Weight>1.9</post:Weight>
+               </post:ColloRow>
+            </post:ColloList>
+            <post:DeliveryServiceThirdPartyID>10</post:DeliveryServiceThirdPartyID>
+            <post:CustomDataBit1>false</post:CustomDataBit1>
+            <post:OURecipientAddress>
+               <post:AddressLine1>Bahnstrasse</post:AddressLine1>
+               <post:AddressLine2/>
+               <post:City>Zirl</post:City>
+               <post:CountryID>AT</post:CountryID>
+               <post:Email>fix@handy-edv.at</post:Email>
+               <post:HouseNumber>27</post:HouseNumber>
+               <post:Name1>Handy/EDV Store Zirl e.U.</post:Name1>
+               <post:PostalCode>6170</post:PostalCode>
+            </post:OURecipientAddress>
+            <post:OUShipperAddress>
+               <post:AddressLine1>?</post:AddressLine1>
+               <post:City>?</post:City>
+               <post:CountryID>AT</post:CountryID>
+               <post:Email>?</post:Email>
+               <post:HouseNumber>?</post:HouseNumber>
+               <post:Name1>?</post:Name1>
+               <post:PostalCode>?</post:PostalCode>
+            </post:OUShipperAddress>
+            <post:OrgUnitGuid>cddac181-bf45-49ef-b804-6fa22bb1fb5d</post:OrgUnitGuid>
+            <post:OrgUnitID>2841998</post:OrgUnitID>
+            <post:PrinterObject>
+               <post:LabelFormatID>100x200</post:LabelFormatID>
+               <post:LanguageID>pdf</post:LanguageID>
+               <post:PaperLayoutID>2xA5inA4</post:PaperLayoutID>
+            </post:PrinterObject>
+         </post:row>
+      </post:ImportShipment>
+   </soapenv:Body>
+</soapenv:Envelope>

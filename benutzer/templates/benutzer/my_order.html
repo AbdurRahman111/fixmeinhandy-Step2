@@ -1,0 +1,50 @@
+{% extends "schadensrechnung/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<section id="services" class="contact section-bg" style="margin-top:35px;">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title" style="text-align: left;">
+            <h2 style="text-align: center;"> <strong>My Orders</strong></h2>
+
+            <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Marke</th>
+      <th scope="col">Model</th>
+      <th scope="col">Schadensart</th>
+      <th scope="col">kosten</th>
+      <th scope="col">Telefon</th>
+      <th scope="col">Adresse</th>
+      <th scope="col">Auftrag_status</th>
+      <th scope="col">Zeit</th>
+      <th scope="col">PDF Label</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for order in my_order %}
+    <tr>
+      <td scope="row">{{ order.marke }}</td>
+      <td scope="row">{{ order.model }}</td>
+      <td scope="row">{{ order.Schadensart }}</td>
+      <td scope="row">{{ order.kosten }}</td>
+
+      <td>{{ order.telefon }}</td>
+      <td>{{ order.ort }} <br>{{ order.Hausnummer }} <br>{{ order.Stadt }} <br>{{ order.Postleitzahl }}  </td>
+      <td>{{ order.Auftrag_status }}</td>
+      <td>{{ order.Zeit }}</td>
+      <td><a class="btn btn-info btn-sm" target="_blank" href="{{ order.PDF_label.url }}">Download Invoice</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+        </div>
+        
+    </div>
+</section>
+
+{% endblock content %}

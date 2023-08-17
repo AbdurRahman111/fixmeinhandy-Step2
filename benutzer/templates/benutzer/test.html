@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Date of Birth Input</title>
+  <style>
+    .error-message {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <form onsubmit="return validateForm()">
+    <label for="dob">Date of Birth (DD.MM.YYYY):</label>
+    <input type="text" id="dob" name="dob" maxlength="10">
+    <span class="error-message" id="dob-error"></span>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    function validateForm() {
+      const dobInput = document.getElementById('dob');
+      const dobError = document.getElementById('dob-error');
+      const inputValue = dobInput.value;
+
+      const isValid = /^(\d{2})\.(\d{2})\.(\d{4})$/.test(inputValue);
+      if (isValid) {
+        const [day, month, year] = inputValue.split('.');
+        const parsedDate = new Date(`${year}-${month}-${day}`);
+        const currentDate = new Date();
+
+        if (
+          parsedDate.getDate() == day &&
+          parsedDate.getMonth() == month - 1 &&
+          parsedDate.getFullYear() == year &&
+          parsedDate.getFullYear() >= 1900 && // Minimum year threshold
+          parsedDate <= currentDate
+        ) {
+          dobError.textContent = '';
+          return true; // Allow form submission
+        } else {
+          dobError.textContent = 'Invalid date.';
+          return false; // Prevent form submission
+        }
+      } else {
+        dobError.textContent = 'Please use the format DD.MM.YYYY';
+        return false; // Prevent form submission
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+{% extends "schadensrechnung/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<section id="services" class="contact section-bg" style="margin-top:35px;">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title" style="text-align: left;">
+            <h2 style="text-align: center;"> <strong>Datenschutzerkl&auml;rung</strong></h2>
+
+            <p>
+                Wir sch&auml;tzen das Vertrauen unserer Kunden sehr, da es den Grundstein f&uuml;r unseren Erfolg darstellt. Daher ist uns der Schutz Ihrer pers&ouml;nlichen Daten von besonderer Bedeutung.<br />
+                Die Verarbeitung Ihrer Daten erfolgt ausschlie&szlig;lich auf der Basis der gesetzlichen Vorschriften der EU-Datenschutzgrundverordnung und des &ouml;sterreichischen Datenschutzgesetzes (DSGVO, TKG 2003).<br />
+                In dieser Datenschutzerkl&auml;rung m&ouml;chten wir Sie &uuml;ber die wesentlichen Aspekte der Datenverarbeitung auf unserer Website aufkl&auml;ren.
+            </p>
+
+            <p>
+                <br />
+                <strong>Kontaktformular</strong><br />
+                Wenn Sie uns &uuml;ber ein Formular auf unserer Website oder per E-Mail kontaktieren, speichern wir Ihre Informationen wie Anrede, Vorname, Nachname, Postanschrift, Geburtstag, E-Mail-Adresse und Telefonnummer, um Ihre Anfrage bearbeiten und eventuelle Folgefragen beantworten zu k&ouml;nnen.<br />
+                Wir geben diese Daten nicht weiter, ohne Ihre Zustimmung einzuholen.
+            </p>
+
+            <p>
+                <br />
+                <strong>Cookies</strong><br />
+                Unsere Webseite setzt sogenannte Cookies ein. Das sind kleine Textdateien, die von Ihrem Browser auf Ihrem Endger&auml;t gespeichert werden. Sie verursachen keinen Schaden.<br />
+                Wir verwenden Cookies, um unsere Dienste benutzerfreundlicher zu gestalten. Einige Cookies verbleiben auf Ihrem Endger&auml;t, bis Sie sie entfernen. Sie erm&ouml;glichen es uns, Ihren Browser beim n&auml;chsten Besuch wieder zu identifizieren.<br />
+                Wenn Sie das nicht m&ouml;chten, k&ouml;nnen Sie Ihren Browser so konfigurieren, dass er Sie &uuml;ber das Setzen von Cookies informiert und Sie dies nur im Einzelfall zulassen.<br />
+                Beachten Sie bitte, dass die Deaktivierung von Cookies die Funktionalit&auml;t unserer Webseite einschr&auml;nken kann.
+            </p>
+
+            <p>
+                <br />
+                <strong>Blockieren von Cookies</strong><br />
+                Hier finden Sie Anleitungen, wie Sie in Ihrem Browser Cookies entweder vollst&auml;ndig oder f&uuml;r bestimmte Websites sperren k&ouml;nnen:<br />
+                Firefox (https://support.mozilla.org/de/kb/Cookies-blockieren#w_cookies-einer-einzelnen-website-blockieren)<br />
+                Chrome (https://support.google.com/chrome/answer/95647?co=GENIE.Platform%3DDesktop&amp;hl=de)<br />
+                Internet Explorer (https://support.microsoft.com/de-at/help/17442/windows-internet-explorer-delete-manage-cookies)<br />
+                Safari (https://support.apple.com/kb/ph21411?locale=de_DE)<br />
+                Alternativ oder zus&auml;tzlich k&ouml;nnen Sie auch Browser-Erweiterungen wie die folgenden verwenden:<br />
+                Ghostery (verf&uuml;gbar f&uuml;r alle g&auml;ngigen Browser)<br />
+                Disconnect (f&uuml;r iOS)<br />
+                Noscript (f&uuml;r Firefox)<br />
+                Diese Tools bieten Ihnen einen &Uuml;berblick dar&uuml;ber, welche Arten von Trackern auf der jeweiligen besuchten Website vorhanden sind, und erm&ouml;glichen es Ihnen, diese individuell zu aktivieren oder zu blockieren.<br />
+                Bitte beachten Sie, dass Sie eventuell nicht alle Funktionen von Websites (wie z.B. Pr&auml;ferenzen und Spracheinstellungen) nutzen k&ouml;nnen, wenn Sie Cookies l&ouml;schen oder blockieren.<br />
+                Bitte beachten Sie auch, dass bei vollst&auml;ndigem Blockieren von Cookies das &quot;Cookie-Banner&quot; bei jedem Seitenaufruf erscheint und auch durch Klicken auf &quot;Zustimmen&quot; nicht dauerhaft verschwindet, da das daf&uuml;r erforderliche Cookie nicht gesetzt werden kann.
+            </p>
+
+            <p>
+                <br />
+                <strong>Server-Protokolldateien</strong><br />
+                Der Anbieter dieser Seiten sammelt und speichert automatisch Informationen in sogenannten Server-Protokolldateien, die Ihr Browser automatisch an uns sendet. Diese beinhalten:<br />
+                Art und Version des Browsers<br />
+                verwendetes Betriebssystem<br />
+                Herkunfts-URL<br />
+                Hostname des zugreifenden Computers<br />
+                Zeitpunkt der Serveranfrage<br />
+                IP-Adresse
+            </p>
+
+            <p>
+                <br />
+                <strong>Google Analytics</strong><br />
+                Unsere Website nutzt Funktionen des Webanalyse-Dienstes Google Analytics, angeboten von der Firma Google Inc., 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA (&quot;Google&quot;).<br />
+                Google Analytics erfasst die Anzahl der Besucher und ihr Verhalten auf unserer Website. Hierf&uuml;r werden Cookies genutzt, die eine Analyse der Websitenutzung durch unsere Besucher erm&ouml;glichen.
+            </p>
+
+            <p>
+                Die durch diese Cookies generierten Informationen werden an Server des Anbieters in den USA &uuml;bertragen und dort gespeichert. Die Aufbewahrungsfrist f&uuml;r Nutzer- und Ereignisdaten betr&auml;gt maximal 50 Monate.<br />
+                Sollten Sie nicht m&ouml;chten, dass Ihr Nutzungsverhalten auf unserer Website erfasst wird, k&ouml;nnen Sie dies verhindern, indem Sie Ihren Browser so einstellen, dass keine Cookies gespeichert werden.<br />
+                Sie k&ouml;nnen die Installation und Speicherung der Cookies durch eine entsprechende Einstellung Ihrer Browsersoftware verhindern oder das unter folgendem Link (http://tools.google.com/dlpage/gaoptout?hl=de) kostenfrei verf&uuml;gbare Browser-Plugin herunterladen und installieren.<br />
+                Um die Erfassung Ihrer Daten durch Google Analytics f&uuml;r diese Webseite zu deaktivieren, k&ouml;nnen Sie folgenden Link anklicken: Google Analytics Opt-Out<br />
+                Dar&uuml;ber hinaus wird Google Analytics genutzt, um Daten von AdWords und dem Double-Click-Cookie zu statistischen Zwecken auszuwerten. Falls Sie dies nicht w&uuml;nschen, k&ouml;nnen Sie dies &uuml;ber den Anzeigenvorgaben-Manager (http://www.google.com/settings/ads/onweb/?hl=de) deaktivieren.
+            </p>
+
+            <p>
+                <br />
+                <strong>Schriftarten - Google Web Fonts</strong><br />
+                Unsere Webseite verwendet f&uuml;r die konsistente Darstellung von Schriftarten sogenannte Web Fonts, die von Google bereitgestellt werden. Wenn Sie eine Seite aufrufen, l&auml;dt Ihr Browser die ben&ouml;tigten Web Fonts in Ihren Browser-Cache, um Texte und Schriftarten richtig darzustellen.<br />
+                F&uuml;r diesen Prozess muss der von Ihnen genutzte Browser eine Verbindung zu den Google-Servern herstellen. Dadurch erlangt Google Kenntnis, dass unsere Website &uuml;ber Ihre IP-Adresse aufgerufen wurde. Wir verwenden Google Web Fonts im Interesse einer einheitlichen und ansprechenden Darstellung unserer Online-Angebote, was ein berechtigtes Interesse gem&auml;&szlig; Art. 6 Abs. 1 lit. f DSGVO darstellt.<br />
+                Falls Ihr Browser Web Fonts nicht unterst&uuml;tzt, wird eine Standardschrift von Ihrem Computer verwendet.<br />
+                Weitere Informationen zu Google Web Fonts finden Sie unter https://developers.google.com/fonts/faq und in der Datenschutzerkl&auml;rung von Google: https://www.google.com/policies/privacy/.
+            </p>
+
+            <p>
+                <br />
+                <strong>L&ouml;schung von Daten</strong><br />
+                Ihre Daten werden entfernt, sobald die jeweilige Vereinbarung mit Ihnen erf&uuml;llt ist und keine rechtliche Verpflichtung zur Aufbewahrung der Daten mehr besteht. In der Regel werden Ihre Daten nach sieben Jahren gel&ouml;scht, gem&auml;&szlig; der Aufbewahrungsfrist gem&auml;&szlig; &sect; 132 BAO.<br />
+                Gesetzliche oder rechtliche Aufbewahrungspflichten oder vertragliche Verpflichtungen, z.B. gegen&uuml;ber Kunden aus Garantie oder Schadenersatz oder gegen&uuml;ber Vertragspartnern, stellen eine Grundlage dar, um personenbezogene Daten weiterhin aufzubewahren. (Art 6 Abs 1 lit c DSGVO &ndash; Grundlage der Rechtm&auml;&szlig;igkeit der Verarbeitung: gesetzliche / rechtliche Verpflichtung)<br />
+                Ihre Rechte<br />
+                Gem&auml;&szlig; der EU-Datenschutzgrundverordnung haben Sie als betroffene Person umfassende Rechte. Diese Rechte dienen insbesondere zur Gew&auml;hrleistung von mehr Transparenz in Bezug auf Ihre Daten.<br />
+                Im Allgemeinen haben Sie Rechte auf Information, Berichtigung, L&ouml;schung, Einschr&auml;nkung, Daten&uuml;bertragbarkeit, Widerruf und Widerspruch.<br />
+                Sie k&ouml;nnen diese Rechte geltend machen, indem Sie uns eine E-Mail an office@handy-edv.at schicken, uns pers&ouml;nlich kontaktieren (z.B. per Telefon), uns einen Brief schreiben oder das Kontaktformular auf unserer Website nutzen.
+            </p>
+            <h3 <script id="CookieDeclaration" src="https://consent.cookiebot.com/63f48239-72db-4a91-91d4-946bc28361c1/cd.js" type="text/javascript" async></script>
+
+        </div>
+
+    </div>
+</section>
+
+                    
+
+{% endblock content %}
