@@ -4,7 +4,7 @@ import requests
 import base64
 from io import BytesIO
 from django.conf import settings
-from benutzer.models import Auftrag
+from benutzer.models import Auftrag, AuftragPdfResponseApi
 from django.core.files.base import ContentFile
 BASE_DIR = settings.BASE_DIR
 
@@ -30,15 +30,20 @@ def api_to_pdf(request):
     print(Adresszeile, Hausnummer, Stadt, Postleitzahl, vorname_nachname, email)
     # Make a request to the API
     response_code, pdf_content = post_api_request(Adresszeile, Hausnummer, Stadt, Postleitzahl, vorname_nachname, email)
-
+    # print('response_code, pdf_content')
+    # print(type(pdf_content))
+    # print(response_code, pdf_content)
     # Check if the request was successful
     if response_code == 200:
         # Create a BytesIO buffer to hold the PDF content
         buffer = BytesIO(pdf_content)
         #saving pdf to database
-        content_file = ContentFile(pdf_content)
-        get_Auftrag.PDF_label.save(f'sendung{Auftrag_id}.pdf', content_file)
-        get_Auftrag.save()
+        # content_file = ContentFile(pdf_content)
+        # get_Auftrag.PDF_label.save(f'sendung{Auftrag_id}.pdf', content_file)
+        # get_Auftrag.save()
+
+        var_Auftrag_Pdf_ResponseApi = AuftragPdfResponseApi(Auftrag=get_Auftrag, response=pdf_content)
+        var_Auftrag_Pdf_ResponseApi.save()
 
         response = FileResponse(buffer, as_attachment=True, filename='sendung.pdf')
         return response

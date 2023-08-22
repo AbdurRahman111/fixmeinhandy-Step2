@@ -2,15 +2,16 @@
 {% load static %}
 {% block content %}
 
-  <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex align-items-center">
-  
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center">
+
     <div class="container">
         <div class="row">
             <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
-                data-aos="fade-up" data-aos-delay="200">
-                <h1>Förderaktion Reparaturbonus</h1>
-                <h2>Reparieren Sie Ihr altes Smartphone, sparen Sie dabei 50% der Kosten und schützen damit die Umwelt! Ab 25. September wieder einlösbar!!
+                 data-aos="fade-up" data-aos-delay="200">
+                <h1>Zuverlässiger Handy-Notdienst: Schnell & Effizient!</h1>
+                <h2>
+                    Ein defektes Smartphone ist ein Hindernis. Mit FixMeinHandy ist die Reparatur nur wenige Klicks entfernt. Geben Sie die Daten ein, senden Sie uns das Gerät und wir sorgen für den Rest, sodass Sie bald wieder erreichbar sind.
                 </h2>
                 <div class="d-flex justify-content-center justify-content-lg-start">
                     <a href="#services" class="btn-get-started scrollto">Reparaturkosten berechnen ➦</a>
@@ -23,10 +24,10 @@
             </div>
         </div>
     </div>
-  
-  </section><!-- End Hero -->
-  
-  <main id="main">
+
+</section><!-- End Hero -->
+
+<main id="main">
 
     <!-- ======= Clients Section ======= -->
     <section id="clients" class="clients section-bg">
@@ -40,7 +41,7 @@
 
                 <div class="col-lg-4 col-md-4 col-6 d-flex align-items-center justify-content-center">
                     <img src="{% static 'schadensrechnung/img/clients/bundesministerium.png' %}" class="img-fluid"
-                        alt="">
+                         alt="">
                 </div>
 
                 <div class="col-lg-4 col-md-4 col-6 d-flex align-items-center justify-content-center">
@@ -51,7 +52,6 @@
 
         </div>
     </section><!-- End Cliens Section -->
-
     <!-- ======= About Us Section   mx-auto======= style="width: 18rem;" -->
     <section id="about" class="about">
         <div class="container" data-aos="fade-up">
@@ -65,11 +65,11 @@
                     <div class="card text-center border-0">
                         <center>
                             <img src="{% static 'schadensrechnung/img/about/smartphone.png' %}"
-                                style="height: 150px; width: 150px;" alt="Image">
+                                 style="height: 150px; width: 150px;" alt="Image">
                         </center>
                         <div class="card-body">
                             <h5 class="card-title">Schadenseingabe</h5>
-                            <p class="card-text">Geben Sie die Daten Ihres defekten Handys ein.</p>
+                            <p class="card-text">Geben Sie die Informationen Ihres beschädigten Smartphones ein und starten Sie den ersten Schritt zur Reparatur.</p>
                         </div>
                     </div>
                 </div>
@@ -78,12 +78,14 @@
                     <div class="card text-center border-0">
                         <center>
                             <img src="{% static 'schadensrechnung/img/about/schraubendreher.png' %}"
-                                class="card-img-top center" style="height: 150px; width: 150px;" alt="Image">
+                                 class="card-img-top center" style="height: 150px; width: 150px;" alt="Image">
                         </center>
                         <div class="card-body">
                             <h5 class="card-title">Zur Reparatur einsenden</h5>
-                            <p class="card-text">Erhalten Sie einen vorläufigen Kostenvoranschlag und senden Sie uns Ihr
-                                Handy.</p>
+                            <p class="card-text">
+                                Erhalten Sie einen ersten Kostenvoranschlag und nutzen Sie unser kostenloses Versandetikett für Ihr
+                                Handy.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -92,11 +94,12 @@
                     <div class="card text-center border-0">
                         <center>
                             <img src="{% static 'schadensrechnung/img/about/schnelle-lieferung.png' %}"
-                                class="card-img-top center" style="height: 150px; width: 150px;" alt="Image">
+                                 class="card-img-top center" style="height: 150px; width: 150px;" alt="Image">
                         </center>
                         <div class="card-body">
-                            <h5 class="card-title">Abschluss</h5>
-                            <p class="card-text">Wir reparieren Ihr Handy und senden es Ihnen nach der Bezahlung zurück.
+                            <h5 class="card-title">Abschluss und Rücksendung</h5>
+                            <p class="card-text">
+                                Nachdem wir Ihr Smartphone repariert haben, senden wir es Ihnen umgehend und ohne zusätzliche Kosten zurück.
                             </p>
                         </div>
                     </div>
@@ -105,21 +108,21 @@
 
         </div>
     </section><!-- End About Us Section -->
-
-
     <!-- ======= Contact Section ======= -->
     <section id="services" class="contact section-bg">
         <div class="container" data-aos="fade-up">
 
             <div class="section-title">
                 <h2>Reparaturkosten berechnen</h2>
-                <p>Geben Sie hier Ihr Handy Model und die Schadensart an und wir berechnen für Sie die vorausichtlichen Kosten.
+                <p>
+                    Geben Sie hier Ihr Handy Model und die Schadensart an und wir berechnen für Sie die vorausichtlichen Kosten.
                 </p>
             </div>
 
             <div class="row">
                 <div class="col-lg-12 mt-5 mt-lg-0 d-flex align-items-stretch">
-                    <form onsubmit="return validateForm();" action="{% url 'marke_model' %}" method="POST" class="php-email-form_new"><!--  id="schadenForm">-->
+                    <form onsubmit="return validateForm();" action="{% url 'marke_model' %}" method="POST" class="php-email-form_new">
+                        <!--  id="schadenForm">-->
                         {% csrf_token %}
                         <div class="row">
                             <div class="form-group col-12">
@@ -152,19 +155,19 @@
                             <label for="art">Schadensart</label>
                             <select class="form-select" id="art" name="art" onchange="show_schadensartPreis(this.value)" disabled>
                                 <option value="0">Bitte wählen Sie die Schadensart ...</option>
-<!--                                <option value="1">Display & Touchscreen</option>-->
-<!--                                <option value="2">Akku bzw. Batterieaustausch</option>-->
-<!--                                <option value="3">Ladestecker bzw. Ladebuchse</option>-->
-<!--                                <option value="4">Ohrlautsprecher</option>-->
-<!--                                <option value="5">Mikrofon</option>-->
-<!--                                <option value="6">Hauptkamera</option>-->
-<!--                                <option value="7">Frontkamera (Selfie)</option>-->
-<!--                                <option value="8">Kamera-Glas (Abdeckung-Rückseite)</option>-->
-<!--                                <option value="9">Klingeltonlautsprecher</option>-->
-<!--                                <option value="10">Kopfhöreranschluss</option>-->
-<!--                                <option value="11">Fehleranalyse & Kostenvoranschlag</option>-->
-<!--                                <option value="12">Software Fehler</option>-->
-<!--                                <option value="13">Sonstige Reparaturen</option>-->
+                                <!--                                <option value="1">Display & Touchscreen</option>-->
+                                <!--                                <option value="2">Akku bzw. Batterieaustausch</option>-->
+                                <!--                                <option value="3">Ladestecker bzw. Ladebuchse</option>-->
+                                <!--                                <option value="4">Ohrlautsprecher</option>-->
+                                <!--                                <option value="5">Mikrofon</option>-->
+                                <!--                                <option value="6">Hauptkamera</option>-->
+                                <!--                                <option value="7">Frontkamera (Selfie)</option>-->
+                                <!--                                <option value="8">Kamera-Glas (Abdeckung-Rückseite)</option>-->
+                                <!--                                <option value="9">Klingeltonlautsprecher</option>-->
+                                <!--                                <option value="10">Kopfhöreranschluss</option>-->
+                                <!--                                <option value="11">Fehleranalyse & Kostenvoranschlag</option>-->
+                                <!--                                <option value="12">Software Fehler</option>-->
+                                <!--                                <option value="13">Sonstige Reparaturen</option>-->
                             </select>
                         </div>
                         <div class="form-group" id="desciption" style="display: none;">
@@ -175,16 +178,16 @@
 
                         <div id="preistag" style="display: none;">
                             <h1 class="text-center" style="color:rgb(6,150,92); margin:20px; ">€<span class="" id="preis"></span></h1>
-<!--                            <label for="preis_input" class=" requiredField" > Kosten </label>-->
+                            <!--                            <label for="preis_input" class=" requiredField" > Kosten </label>-->
                             <div style="margin-bottom:20px;">
                                 <input type="hidden" name="preis_input" style="text-align: center;" class="textinput form-control" id="preis_input" readonly>
                             </div>
                         </div>
-<!--                        <div class="my-3">-->
-<!--                            <div class="loading">Loading</div>-->
-<!--                            <div class="error-message"></div>-->
-<!--                            <div class="sent-message">Your message has been sent. Thank you!</div>-->
-<!--                        </div>-->
+                        <!--                        <div class="my-3">-->
+                        <!--                            <div class="loading">Loading</div>-->
+                        <!--                            <div class="error-message"></div>-->
+                        <!--                            <div class="sent-message">Your message has been sent. Thank you!</div>-->
+                        <!--                        </div>-->
                         <div class="text-center"><button type="submit">Weiter zur Dateneingabe</button></div>
                     </form>
                 </div>
@@ -193,23 +196,90 @@
 
         </div>
     </section>
+    <section id="faq" class="faq section-bg">
+        <div class="container" data-aos="fade-up">
+            <div class="section-title">
+                <h2>FAQ - Häufig gestellte Fragen</h2>
+            </div>
+            <ul class="faq-list" data-aos="fade-up" data-aos-delay="100">
+                <li>
+                    <a data-toggle="collapse" class="collapsed" href="#faq1">Wie lange dauert eine durchschnittliche Reparatur bei FixMeinHandy?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></a>
+                    <div id="faq1" class="collapse" data-parent=".faq-list">
+                        <p>Die Dauer der Reparatur hängt vom Schadensumfang ab. In den meisten Fällen können wir Ihr Smartphone innerhalb von 2-3 Werktagen reparieren und zurücksenden.</p>
+                    </div>
+                </li>
 
+                <li>
+                    <a data-toggle="collapse" class="collapsed" href="#faq2">Bietet FixMeinHandy eine Garantie auf die Reparatur?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></a>
+                    <div id="faq2" class="collapse" data-parent=".faq-list">
+                        <p>Ja, wir bieten eine 12-monatige Garantie auf die meisten unserer Reparaturen. Details finden Sie in unseren Garantiebedingungen.</p>
+                    </div>
+                </li>
 
+                <li>
+                    <a data-toggle="collapse" href="#faq3" class="collapsed">Wie funktioniert der kostenlose Versand?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></a>
+                    <div id="faq3" class="collapse" data-parent=".faq-list">
+                        <p>Geben Sie alle notwendigen Schadensdetails in das bereitgestellte Formular ein. Nach Abschluss Ihrer Eingabe generiert unser System automatisch ein Versandetikett zum Download. Drucken Sie dieses Etikett aus und verpacken Sie Ihr Handy sicher, um weitere Beschädigungen während des Transports zu vermeiden. Kleben Sie das ausgedruckte Versandetikett gut sichtbar auf Ihr Paket und geben Sie es bei einer Filiale der Post AG ab.</p>
+                    </div>
+                </li>
+
+                <li>
+                    <a data-toggle="collapse" href="#faq4" class="collapsed">Was passiert, wenn mein Gerät nicht repariert werden kann?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></a>
+                    <div id="faq4" class="collapse" data-parent=".faq-list">
+                        <p>Sollte eine Reparatur nicht möglich sein, informieren wir Sie umgehend. Sie haben dann die Wahl, ob Sie Ihr Gerät unverändert zurückhaben möchten oder ob wir es umweltgerecht für Sie entsorgen.</p>
+                    </div>
+                </li>
+
+                <li>
+                    <a data-toggle="collapse" href="#faq5" class="collapsed">Wie sicher sind meine Daten während des Reparaturprozesses?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></a>
+                    <div id="faq5" class="collapse" data-parent=".faq-list">
+                        <p>Ihre Daten sind bei uns sicher. Wir empfehlen jedoch, vor dem Versand ein Backup Ihrer Daten zu erstellen. Wir garantieren, dass Ihre Daten vertraulich behandelt und nicht an Dritte weitergegeben werden.</p>
+                    </div>
+                </li>
+
+                <li>
+                    <a data-toggle="collapse" href="#faq6" class="collapsed">Welche Zahlungsmethoden akzeptiert FixMeinHandy?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></a>
+                    <div id="faq6" class="collapse" data-parent=".faq-list">
+                        <p>Nachdem wir Ihr Handy erhalten und den Schaden bestätigt haben (um sicherzustellen, dass keine weiteren Schäden vorhanden sind), senden wir Ihnen eine E-Mail mit den Zahlungsoptionen. Wir akzeptieren PayPal, Kreditkarte und SEPA-Überweisung.</p>
+                    </div>
+                </li>
+
+                <li>
+                    <a data-toggle="collapse" href="#faq7" class="collapsed">Mein Handy-Modell ist nicht auf Ihrer Liste. Können Sie es trotzdem reparieren?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></a>
+                    <div id="faq7" class="collapse" data-parent=".faq-list">
+                        <p>In den meisten Situationen können wir Unterstützung bieten. Bitte übermitteln Sie uns detaillierte Informationen zu Ihrem Gerät, und unser Team wird prüfen, wie wir Ihnen optimal weiterhelfen können.</p>
+                    </div>
+                </li>
+
+                <li>
+                    <a data-toggle="collapse" href="#faq8" class="collapsed">Verwendet FixMeinHandy Original-Ersatzteile für die Reparaturen?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></a>
+                    <div id="faq8" class="collapse" data-parent=".faq-list">
+                        <p>
+                            Ja, bei FixMeinHandy legen wir großen Wert auf Qualität und Zuverlässigkeit. Für alle Modelle, außer iPhones, verwenden wir ausschließlich Original-Ersatzteile. Bei iPhone-Reparaturen bieten wir zwei Optionen an:<br>
+                            a) Originale Ersatzteile: Diese Teile müssen speziell für iPhones bestellt werden und haben eine Lieferzeit von 10-12 Werktagen. Sie sind in der Regel teurer. Wenn Sie eine Reparatur mit originalen Ersatzteilen wünschen, muss eine spezielle Anfrage gestellt werden.<br>
+                            b) Original Refurbished: Bei dieser Reparaturvariante kommt ein aufbereitetes, originales Ersatzteil zum Einsatz. Optisch bleibt Ihr Gerät unverändert, und Sie würden keinen Unterschied vor und nach der Reparatur bemerken. Allerdings könnte in den Einstellungen eine Benachrichtigung auftauchen, in der Apple anmerkt, dass die Authentizität des Bauteils nicht verifiziert werden konnte.<br>
+                            Bitte beachten Sie, dass die auf unserer Webseite angegebenen Preise sich immer auf die "Original Refurbished" Option beziehen. Wenn Sie an den Original-Ersatzteilen interessiert sind, kontaktieren Sie uns bitte für ein individuelles Angebot.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
 
     <!-- End Contact Section -->
 </main>
 
 
 <script>
-        function validateForm() {
-            var marke = document.getElementById("marke").value;
-            var model = document.getElementById("model").value;
-            var art = document.getElementById("art").value;
-            if (marke == "0" || model == "0" || art == "0") {
-                return false;
-            }
+    function validateForm() {
+        var marke = document.getElementById("marke").value;
+        var model = document.getElementById("model").value;
+        var art = document.getElementById("art").value;
+        if (marke == "0" || model == "0" || art == "0") {
+            return false;
         }
-    </script>
+    }
+</script>
 
 
 
@@ -223,24 +293,24 @@
         set_schadensart_default();
         console.log('valeynkehincwjiojiowejiweoi');
         console.log(selectedValue);
-        if (selectedValue == '0'){
+        if (selectedValue == '0') {
             var x = document.getElementById("model");
             var y = document.getElementById("art");
             var z = document.getElementById("desciption");
             x.disabled = true;
             y.disabled = true;
             z.style.display = 'none';
-        }else{
+        } else {
             document.getElementById("art").disabled = true;
 
             // Make an AJAX request to fetch the options for the second dropdown
-        fetch('/get_handy_namen/?selected_value=' + selectedValue)
-            .then(response => response.json())
-            .then(data => updateSecondDropdown(data.options))
-            .catch(error => console.error('Error:', error));
+            fetch('/get_handy_namen/?selected_value=' + selectedValue)
+                .then(response => response.json())
+                .then(data => updateSecondDropdown(data.options))
+                .catch(error => console.error('Error:', error));
             document.getElementById("model").removeAttribute("disabled");
             MARKE = selectedValue;
-        }  
+        }
     }
 
 
@@ -248,13 +318,13 @@
         console.log('monnaa');
         console.log(selectedValue);
         set_schadensart_default();
-        if (selectedValue == '0'){
+        if (selectedValue == '0') {
             console.log('nononono');
             var y = document.getElementById("art");
             var z = document.getElementById("desciption");
             y.disabled = true;
             z.style.display = 'none';
-        }else{
+        } else {
             console.log('nononono');
             HANDYMODEL = selectedValue;
             document.getElementById("art").removeAttribute("disabled");
@@ -286,7 +356,7 @@
     }
 
 
-    function show_schadensartPreis(data){
+    function show_schadensartPreis(data) {
         console.log(data);
         var x = document.getElementById("desciption");
         var preistag = document.getElementById("preistag");
@@ -331,13 +401,13 @@
         var x = document.getElementById("desciption");
         var preistag = document.getElementById("preistag");
         var preis = document.getElementById("preis");
-        if(data.sonstiges == 1){
+        if (data.sonstiges == 1) {
             x.style.display = "block";
-        }else{
+        } else {
             x.style.display = "none";
         }
 
-        if(data.preis != -1){
+        if (data.preis != -1) {
             preis.innerHTML = data.preis;
             preis_input.value = data.preis;
             preistag.style.display = "block";
@@ -345,11 +415,16 @@
 
     }
 
-    function set_schadensart_default(){
+    function set_schadensart_default() {
         document.getElementById("desciption").style.display = "none";
         document.getElementById("preistag").style.display = "none";
         document.getElementById("art").selectedIndex = 0;
     }
 </script>
 
-{% endblock content %}
+<!-- jQuery for Bootstrap's JavaScript functionality -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<!-- Bootstrap JS for collapse functionality -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}

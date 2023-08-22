@@ -14,7 +14,6 @@ class KundendatenForm(forms.ModelForm):
             'email',
             # 'geburtsdatum',
             'telefon',
-            'ort',
             'Adresszeile',
             'Hausnummer',
             'Stadt',

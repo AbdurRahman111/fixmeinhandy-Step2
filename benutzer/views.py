@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import FileResponse, HttpResponse
 from .forms import KundendatenForm
 from django.contrib import messages
 from .soap_client import create_soap_client, create_shipment_request
@@ -7,8 +8,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 import datetime
 from post_api.views import api_to_pdf
-from .models import Auftrag
+from .models import Auftrag, AuftragPdfResponseApi
 from account.models import User_Profile
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from io import BytesIO
 
 
 def marke_model(request):
@@ -45,6 +49,13 @@ def marke_model(request):
 
 
 def terms_condition(request):
+    # send_mail(
+    #     'FixMeinHandy - Thanks for order from us',  # subject of mail
+    #     'email_body',  # body of mail
+    #     'office@fixmeinhandy.at',  # Your email address
+    #     ['suvosorkar7uu8@gmail.com'],  # Recipient email address(es)
+    #     fail_silently=False,
+    # )
     return render(request, "benutzer/terms_condition.html")
 
 
@@ -56,6 +67,21 @@ def my_order(request):
     else:
         return redirect('/')
 
+def myorder_download_invoice(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            Auftrag_id = request.POST.get('Auftrag_id')
+            # print('Auftrag_id')
+            # print(Auftrag_id)
+
+            get_Response_Of_PDF = AuftragPdfResponseApi.objects.get(Auftrag=Auftrag.objects.get(id = Auftrag_id))
+            str_to_byte = bytes(get_Response_Of_PDF.response, 'utf-8')
+            buffer = BytesIO(str_to_byte)
+            response = FileResponse(buffer, as_attachment=True, filename='sendung.pdf')
+            return response
+    else:
+        return redirect('/')
+
 
 def kundendaten_get(request):
     if request.method == 'POST':
@@ -63,7 +89,7 @@ def kundendaten_get(request):
         nachname = request.POST.get('nachname')
         email = request.POST.get('email')
         telefon = request.POST.get('telefon')
-        ort = request.POST.get('ort')
+        # ort = request.POST.get('ort')
         Adresszeile = request.POST.get('Adresszeile')
         Hausnummer = request.POST.get('Hausnummer')
         Stadt = request.POST.get('Stadt')
@@ -75,12 +101,12 @@ def kundendaten_get(request):
         preis_input = request.POST.get('preis_input')
 
         geburtsdatum = request.POST.get('geburtsdatum')
-        date_obj = datetime.datetime.strptime(geburtsdatum, "%d.%m.%Y").date()
+        # date_obj = datetime.datetime.strptime(geburtsdatum, "%d.%m.%Y").date()
 
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
 
-        var_Auftrag = Auftrag(email=email, vorname=vorname, nachname=nachname, geburtsdatum=geburtsdatum, ort=ort, Adresszeile=Adresszeile, Hausnummer=Hausnummer, Stadt=Stadt, Postleitzahl=Postleitzahl, marke=marke, model=model, Schadensart=art, kosten=preis_input, telefon=telefon)
+        var_Auftrag = Auftrag(email=email, vorname=vorname, nachname=nachname, geburtsdatum=geburtsdatum, Adresszeile=Adresszeile, Hausnummer=Hausnummer, Stadt=Stadt, Postleitzahl=Postleitzahl, marke=marke, model=model, Schadensart=art, kosten=preis_input, telefon=telefon)
         var_Auftrag.save()
 
         if request.user.is_authenticated:
@@ -139,8 +165,40 @@ def kundendaten_get(request):
                     var_Auftrag.User = request.user
                     var_Auftrag.save()
 
+                    if not User_Profile.objects.filter(user=request.user):
+                        get_profile = User_Profile(user=request.user, telefon=telefon, geburtsdatum=geburtsdatum, Adresszeile=Adresszeile, Hausnummer=Hausnummer, Stadt=Stadt, Postleitzahl=Postleitzahl)
+                        get_profile.save()
                 messages.success(request,
                                  f'Your account has been created !!! you are now logged in as {first_name} {last_name}')
+
+                email_body = render_to_string(
+                    'benutzer/order_email.html',
+                    {
+                        'first_name': var_Auftrag.vorname,
+                        'last_name': var_Auftrag.nachname,
+                        'email': var_Auftrag.email,
+                        'product': str(var_Auftrag.marke) + " " + str(var_Auftrag.model),
+                        'total_bill': var_Auftrag.kosten,
+                        'full_address': str(var_Auftrag.Adresszeile) + " " + str(var_Auftrag.Hausnummer) + " " + str(
+                            var_Auftrag.Stadt) + " " + str(var_Auftrag.Postleitzahl),
+                        'city': var_Auftrag.Stadt,
+                        'postal_code': var_Auftrag.Postleitzahl,
+                        'phone': var_Auftrag.telefon,
+			            'marke': var_Auftrag.marke,
+                	    'model': var_Auftrag.model,
+                	    'Schadensart': var_Auftrag.Schadensart,
+                    }
+                )
+
+                send_mail(
+                    'FixMeinHandy - Thanks for order from us',  # subject of mail
+                    email_body,  # body of mail
+                    'office@fixmeinhandy.at',  # Your email address
+                    [var_Auftrag.email],  # Recipient email address(es)
+                    fail_silently=True,
+                )
+
+
                 context = {'Adresszeile': var_Auftrag.Adresszeile, 'Hausnummer': var_Auftrag.Hausnummer,
                            'Stadt': var_Auftrag.Stadt, 'Postleitzahl': var_Auftrag.Postleitzahl,
                            'email': var_Auftrag.email,
@@ -158,7 +216,41 @@ def kundendaten_get(request):
 
         messages.success(request, f'Order created for {var_Auftrag.vorname} {var_Auftrag.nachname}!')
 
+        email_body = render_to_string(
+            'benutzer/order_email.html',
+            {
+                'first_name': var_Auftrag.vorname,
+                'last_name': var_Auftrag.nachname,
+                'email': var_Auftrag.email,
+                'product': str(var_Auftrag.marke)+ " " + str(var_Auftrag.model),
+                'total_bill': var_Auftrag.kosten,
+                'full_address' : str(var_Auftrag.Adresszeile) + " " + str(var_Auftrag.Hausnummer) + " " + str(var_Auftrag.Stadt) + " " + str(var_Auftrag.Postleitzahl),
+                'city' : var_Auftrag.Stadt,
+                'postal_code' :var_Auftrag.Postleitzahl,
+                'phone' : var_Auftrag.telefon,
+		'marke': var_Auftrag.marke,
+                'model': var_Auftrag.model,
+                'Schadensart': var_Auftrag.Schadensart,
+            }
+        )
+
+        if request.user.is_authenticated:
+            if not User_Profile.objects.filter(user=request.user):
+                get_profile = User_Profile(user=request.user, telefon=telefon, geburtsdatum=geburtsdatum,
+                                           Adresszeile=Adresszeile, Hausnummer=Hausnummer, Stadt=Stadt,
+                                           Postleitzahl=Postleitzahl)
+                get_profile.save()
+
+        send_mail(
+            'FixMeinHandy - Thanks for order from us', #subject of mail
+            email_body, # body of mail
+            'office@fixmeinhandy.at',  # Your email address
+            [var_Auftrag.email],  # Recipient email address(es)
+            fail_silently=True,
+        )
+
         context = {'Adresszeile':var_Auftrag.Adresszeile, 'Hausnummer':var_Auftrag.Hausnummer, 'Stadt':var_Auftrag.Stadt, 'Postleitzahl':var_Auftrag.Postleitzahl, 'email':var_Auftrag.email, 'vorname_nachname':str(var_Auftrag.vorname)+" "+str(var_Auftrag.nachname), 'Auftrag_id':var_Auftrag.id}
+
         return render(request, "benutzer/information_page.html", context)
 
     else:

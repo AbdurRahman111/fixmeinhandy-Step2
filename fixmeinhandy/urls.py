@@ -24,6 +24,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('allgemeine_daten/', benutzer_views.kundendaten, name='dateneingabe'), #dateneingabe
     path('my_order/', benutzer_views.my_order, name="my_order"),
+    path('myorder_download_invoice/', benutzer_views.myorder_download_invoice, name="myorder_download_invoice"),
     path('marke_model/', benutzer_views.marke_model, name="marke_model"),
     # path('information_page/', benutzer_views.information_page, name="information_page"),
     path('terms-and-conditions/', benutzer_views.terms_condition, name="terms_condition"),

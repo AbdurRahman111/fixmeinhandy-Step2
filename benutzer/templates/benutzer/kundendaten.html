@@ -64,14 +64,14 @@
                </label>
                <div> <input type="number" name="telefon" maxlength="20" class="textinput textInput form-control"  id="englishInput_telefon" value="{% if get_profile.telefon %}{{ get_profile.telefon }}{% endif %}"> </div>
             </div>
-            <div id="div_id_ort" class="form-group">
-               <label for="englishInput_ort" class=" requiredField">
-               Ort<span class="asteriskField">*</span> </label>
-               <div> <input type="text" name="ort" maxlength="30" class="textinput textInput form-control" required="" id="englishInput_ort" onkeyup="checkInputEnglish('ort')" value="{% if get_profile.ort %}{{ get_profile.ort }}{% endif %}">
-               <input type="hidden" value="0" name="hidden_input_error_status_ort" id="hidden_input_error_status_ort">
-               </div>
-               <span id="mynewmessage_ort" style="color:red"></span>
-            </div>
+<!--            <div id="div_id_ort" class="form-group">-->
+<!--               <label for="englishInput_ort" class=" requiredField">-->
+<!--               Ort<span class="asteriskField">*</span> </label>-->
+<!--               <div> <input type="text" name="ort" maxlength="30" class="textinput textInput form-control" required="" id="englishInput_ort" onkeyup="checkInputEnglish('ort')" value="{% if get_profile.ort %}{{ get_profile.ort }}{% endif %}">-->
+<!--               <input type="hidden" value="0" name="hidden_input_error_status_ort" id="hidden_input_error_status_ort">-->
+<!--               </div>-->
+<!--               <span id="mynewmessage_ort" style="color:red"></span>-->
+<!--            </div>-->
             <div id="div_id_Adresszeile" class="form-group">
                <label for="englishInput_Adresszeile" class=" requiredField">
                Adresszeile<span class="asteriskField">*</span> </label>
@@ -100,9 +100,9 @@
             </div>
          </fieldset>
          <div id="div_geburtsdatum" class="form-group" style="margin-top: -28px">
-            <label for="dob" class=" requiredField">  Geburtsdatum<span class="asteriskField">*</span> <b> (DD.MM.YYYY)</b></label>
+            <label for="dob" class=" requiredField">  Geburtsdatum<span class="asteriskField">*</span> <b> (TT.MM.JJJJ)</b></label>
             <div>
-               <input type="text" id="dob" name="geburtsdatum" maxlength="10" class="dateinput form-control"  placeholder="dd.mm.yyyy" value="{% if get_profile.geburtsdatum %}{{ get_profile.geburtsdatum }}{% endif %}" required>
+               <input type="text" id="dob" name="geburtsdatum" maxlength="10" class="dateinput form-control"  placeholder="TT.MM.JJJJ" value="{% if get_profile.geburtsdatum %}{{ get_profile.geburtsdatum }}{% endif %}" required>
             </div>
             <span id="myElement_geburtsdatum" style="color:red;"></span>
          </div>
@@ -167,12 +167,12 @@ function checkInputEnglish(input_id) {
 
 
     var inputValue = inputElement.value;
-    var sanitizedValue = inputValue.replace(/[^a-zA-Z\s]/g, "");
+    var sanitizedValue = inputValue.replace(/[^a-zA-ZöäüÖÄÜß\s]/g, "");
 
     if (sanitizedValue !== inputValue) {
          document.getElementById("hidden_input_error_status_"+input_id).value = 1;
-        errorMessageElement.textContent = input_id+" error : Only English characters are allowed.";
-        errorMessageElement2.textContent = input_id+" error : Only English characters are allowed.";
+        errorMessageElement.textContent = input_id+" Fehler : Schreiben Sie bitte alle Sonderzeichen aus.";
+        errorMessageElement2.textContent = input_id +" Fehler : Schreiben Sie bitte alle Sonderzeichen aus.";
         document.getElementById('submit_button').innerHTML = `<button type="submit" style="background-color:#F52C0D;" disabled>Bitte verwenden Sie das richtige Format</button>`;
     } else {
          document.getElementById("hidden_input_error_status_"+input_id).value = 0;
@@ -180,10 +180,10 @@ function checkInputEnglish(input_id) {
         errorMessageElement2.textContent = "";
         var hidden_input_error_status_vorname = document.getElementById("hidden_input_error_status_vorname").value;
        var hidden_input_error_status_nachname = document.getElementById("hidden_input_error_status_nachname").value;
-       var hidden_input_error_status_ort = document.getElementById("hidden_input_error_status_ort").value;
+       //var hidden_input_error_status_ort = document.getElementById("hidden_input_error_status_ort").value;
        var hidden_input_error_status_Adresszeile = document.getElementById("hidden_input_error_status_Adresszeile").value;
        var hidden_input_error_status_Stadt = document.getElementById("hidden_input_error_status_Stadt").value;
-       if (hidden_input_error_status_vorname == 0 && hidden_input_error_status_nachname == 0 && hidden_input_error_status_ort == 0 && hidden_input_error_status_Adresszeile == 0 && hidden_input_error_status_Stadt){
+       if (hidden_input_error_status_vorname == 0 && hidden_input_error_status_nachname == 0 && hidden_input_error_status_Adresszeile == 0 && hidden_input_error_status_Stadt){
        document.getElementById('submit_button').innerHTML = `<button type="submit">Reparatur anfragen</button>`;
        }
 
@@ -224,9 +224,9 @@ function checkInputEnglish(input_id) {
         }
       }
       else {
-        //dobError.textContent = 'Please use the format DD.MM.YYYY';
-        document.getElementById("myElement").innerHTML = "Please use the format DD.MM.YYYY";
-        document.getElementById("myElement_geburtsdatum").innerHTML = "Please use the format DD.MM.YYYY";
+        //dobError.textContent = 'Please use the format TT.MM.JJJJ';
+        document.getElementById("myElement").innerHTML = "Please use the format TT.MM.JJJJ";
+        document.getElementById("myElement_geburtsdatum").innerHTML = "Please use the format TT.MM.JJJJ";
         return false; // Prevent form submission
       }
     }

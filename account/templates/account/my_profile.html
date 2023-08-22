@@ -55,14 +55,7 @@
                </label>
                <div> <input type="number" name="telefon" maxlength="20" class="textinput textInput form-control"  id="englishInput_telefon" value="{% if get_profile.telefon %}{{ get_profile.telefon }}{% endif %}"> </div>
             </div>
-            <div id="div_id_ort" class="form-group">
-               <label for="englishInput_ort" class=" requiredField">
-               Ort </label>
-               <div> <input type="text" name="ort" maxlength="30" class="textinput textInput form-control" id="englishInput_ort" onkeyup="checkInputEnglish('ort')" value="{% if get_profile.ort %}{{ get_profile.ort }}{% endif %}">
-               <input type="hidden" value="0" name="hidden_input_error_status_ort" id="hidden_input_error_status_ort">
-               </div>
-               <span id="mynewmessage_ort" style="color:red"></span>
-            </div>
+
             <div id="div_id_Adresszeile" class="form-group">
                <label for="englishInput_Adresszeile" class=" requiredField">
                Adresszeile<span class="asteriskField"></span> </label>

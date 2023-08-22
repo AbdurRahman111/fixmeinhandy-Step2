@@ -99,7 +99,7 @@ def my_profile(request):
             nachname = request.POST.get('nachname')
             # email = request.POST.get('email')
             telefon = request.POST.get('telefon')
-            ort = request.POST.get('ort')
+            # ort = request.POST.get('ort')
             Adresszeile = request.POST.get('Adresszeile')
             Hausnummer = request.POST.get('Hausnummer')
             Stadt = request.POST.get('Stadt')
@@ -114,7 +114,6 @@ def my_profile(request):
             if User_Profile.objects.filter(user=request.user):
                 get_profile = User_Profile.objects.get(user=request.user)
                 get_profile.geburtsdatum=geburtsdatum
-                get_profile.ort=ort
                 get_profile.Adresszeile=Adresszeile
                 get_profile.Hausnummer=Hausnummer
                 get_profile.Stadt=Stadt
@@ -125,7 +124,7 @@ def my_profile(request):
                 get_profile.user.last_name = nachname
                 get_profile.user.save()
             else:
-                var_User_Profile = User_Profile(user=request.user, geburtsdatum=geburtsdatum, ort=ort, Adresszeile=Adresszeile, Hausnummer=Hausnummer, Stadt=Stadt, Postleitzahl=Postleitzahl, telefon=telefon)
+                var_User_Profile = User_Profile(user=request.user, geburtsdatum=geburtsdatum, Adresszeile=Adresszeile, Hausnummer=Hausnummer, Stadt=Stadt, Postleitzahl=Postleitzahl, telefon=telefon)
                 var_User_Profile.save()
 
                 var_User_Profile.user.first_name = vorname

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4cc6465f-fad7-4d80-86a8-b87e5f0a2db7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/fixmeinhandy-Step2.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/fixmeinhandy-main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Auftrag_Pdf/sendung.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/account/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/templates/account/my_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/account/templates/account/my_profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/account/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benutzer/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/benutzer/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benutzer/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/benutzer/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benutzer/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/benutzer/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benutzer/templates/benutzer/information_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/benutzer/templates/benutzer/information_page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benutzer/templates/benutzer/kundendaten.html" beforeDir="false" afterPath="$PROJECT_DIR$/benutzer/templates/benutzer/kundendaten.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benutzer/templates/benutzer/my_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/benutzer/templates/benutzer/my_order.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benutzer/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/benutzer/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fixmeinhandy/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/fixmeinhandy/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fixmeinhandy/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/fixmeinhandy/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fixmeinhandy/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/fixmeinhandy/wsgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/Auftrag_Pdf/sendung1.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/Auftrag_Pdf/sendung2.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/Auftrag_Pdf/sendung26.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/Auftrag_Pdf/sendung27.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/Auftrag_Pdf/sendung28.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/Auftrag_Pdf/sendung29.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/Auftrag_Pdf/sendung3.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/Auftrag_Pdf/sendung30.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/Auftrag_Pdf/sendung31.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/Auftrag_Pdf/sendung32.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/Auftrag_Pdf/sendung33.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/Auftrag_Pdf/sendung34.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/Auftrag_Pdf/sendung35.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/media/Auftrag_Pdf/sendung35.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/Auftrag_Pdf/sendung4.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/Auftrag_Pdf/sendung7.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/Auftrag_Pdf/sendung8.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/Auftrag_Pdf/sendung9.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/post_api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/post_api/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schadensrechnung/templates/schadensrechnung/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/schadensrechnung/templates/schadensrechnung/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schadensrechnung/templates/schadensrechnung/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/schadensrechnung/templates/schadensrechnung/home.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2UIF6v0OAFwfQNgTNMu74KL5KEq" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4cc6465f-fad7-4d80-86a8-b87e5f0a2db7" name="Changes" comment="" />
+      <created>1692619025511</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1692619025511</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>
