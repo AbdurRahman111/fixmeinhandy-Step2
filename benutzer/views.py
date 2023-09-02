@@ -20,20 +20,26 @@ def marke_model(request):
         marke = request.POST.get('marke')
         model = request.POST.get('model')
         art = request.POST.get('art')
+        art_array = art.split(",")
+        # print(art_array)
+        # print(art_array[0])
+        # print(art_array[1])
         preis_input = request.POST.get('preis_input')
+        # print(art)
+        # print('artart')
 
-        if art == '1':
-            main_art = 'Display & Touchscreen'
-        elif art == '2':
-            main_art = 'Akku'
-        elif art == '3':
-            main_art = 'Ladebuchse'
-        elif art == '4':
-            main_art = 'Rückglas'
-        else:
-            main_art = 'Sonstiges'
+        # if art == '1':
+        #     main_art = 'Display & Touchscreen'
+        # elif art == '2':
+        #     main_art = 'Akku'
+        # elif art == '3':
+        #     main_art = 'Ladebuchse'
+        # elif art == '4':
+        #     main_art = 'Rückglas'
+        # else:
+        #     main_art = 'Sonstiges'
 
-        print(marke, model, main_art)
+        # print(marke, model, main_art)
         form = KundendatenForm()
 
         try:
@@ -41,7 +47,7 @@ def marke_model(request):
         except:
             get_profile = None
 
-        context = {'marke':marke, 'model':model, 'art':main_art, 'form':form, 'preis_input':preis_input, 'get_profile': get_profile}
+        context = {'marke':marke, 'model':model, 'art':art_array[1], 'form':form, 'preis_input':preis_input, 'get_profile': get_profile}
         return render(request, 'benutzer/kundendaten.html', context)
 
     else:
@@ -71,7 +77,7 @@ def myorder_download_invoice(request):
     if request.user.is_authenticated:
         if request.method == "POST":
             Auftrag_id = request.POST.get('Auftrag_id')
-            # print('Auftrag_id')
+            print('paglu test')
             # print(Auftrag_id)
 
             get_Response_Of_PDF = AuftragPdfResponseApi.objects.get(Auftrag=Auftrag.objects.get(id = Auftrag_id))
@@ -98,6 +104,7 @@ def kundendaten_get(request):
 
         model = request.POST.get('model')
         art = request.POST.get('art')
+
         preis_input = request.POST.get('preis_input')
 
         geburtsdatum = request.POST.get('geburtsdatum')
@@ -228,7 +235,7 @@ def kundendaten_get(request):
                 'city' : var_Auftrag.Stadt,
                 'postal_code' :var_Auftrag.Postleitzahl,
                 'phone' : var_Auftrag.telefon,
-		'marke': var_Auftrag.marke,
+		        'marke': var_Auftrag.marke,
                 'model': var_Auftrag.model,
                 'Schadensart': var_Auftrag.Schadensart,
             }

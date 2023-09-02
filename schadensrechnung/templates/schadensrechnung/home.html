@@ -349,7 +349,7 @@
         // Add the new options to the second dropdown
         options.forEach(option => {
             const optionElement = document.createElement('option');
-            optionElement.value = option.value;
+            optionElement.value = option.value + "," + option.label;
             optionElement.text = option.label;
             thirdDropdown.appendChild(optionElement);
         });
@@ -358,13 +358,14 @@
 
     function show_schadensartPreis(data) {
         console.log(data);
+        const dataArray = data.split(",");
+        console.log(dataArray);
         var x = document.getElementById("desciption");
         var preistag = document.getElementById("preistag");
         var preis = document.getElementById("preis");
-        preis.innerHTML = data;
-        preis_input.value = data;
+        preis.innerHTML = dataArray[0];
+        preis_input.value = dataArray[0];
         preistag.style.display = "block";
-
     }
 
     function fetchPreis(selectedValue) {
