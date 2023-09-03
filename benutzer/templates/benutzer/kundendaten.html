@@ -60,9 +60,9 @@
             </div>
             <div id="div_id_telefon" class="form-group">
                <label for="englishInput_telefon" class="">
-               Telefon
+               Telefon<span class="asteriskField">*</span>
                </label>
-               <div> <input type="number" name="telefon" maxlength="20" class="textinput textInput form-control"  id="englishInput_telefon" value="{% if get_profile.telefon %}{{ get_profile.telefon }}{% endif %}"> </div>
+               <div> <input type="number" name="telefon" maxlength="20" class="textinput textInput form-control"  id="englishInput_telefon" value="{% if get_profile.telefon %}{{ get_profile.telefon }}{% endif %}" required> </div>
             </div>
 <!--            <div id="div_id_ort" class="form-group">-->
 <!--               <label for="englishInput_ort" class=" requiredField">-->

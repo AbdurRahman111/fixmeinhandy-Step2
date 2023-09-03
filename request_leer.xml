@@ -30,12 +30,12 @@
                <post:Name1>?</post:Name1>
                <post:PostalCode>?</post:PostalCode>
             </post:OUShipperAddress>
-            <post:OrgUnitGuid>cddac181-bf45-49ef-b804-6fa22bb1fb5d</post:OrgUnitGuid>
-            <post:OrgUnitID>2841998</post:OrgUnitID>
+            <post:OrgUnitGuid>cce24bb2-08c3-44c5-be4c-31665bcdeb4d</post:OrgUnitGuid>
+            <post:OrgUnitID>78698245</post:OrgUnitID>
             <post:PrinterObject>
                <post:LabelFormatID>100x200</post:LabelFormatID>
                <post:LanguageID>pdf</post:LanguageID>
-               <post:PaperLayoutID>2xA5inA4</post:PaperLayoutID>
+               <post:PaperLayoutID>A5</post:PaperLayoutID>
             </post:PrinterObject>
          </post:row>
       </post:ImportShipment>

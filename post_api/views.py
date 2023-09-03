@@ -78,14 +78,14 @@ def post_api_request(address_line, house_number, city, postal_code, name, email)
             el.text = house_number
     xml = ET.tostring(root)#.decode('utf8') #encoding='utf8'
 
-    # url= "https://plc.post.at/Post.Webservice/ShippingService.svc/secure"
-    url = 'https://abn-plc.post.at/DataService/Post.Webservice/ShippingService.svc/secure'
+    url = 'https://plc.post.at/Post.Webservice/ShippingService.svc/secure'
+    # url = 'https://abn-plc.post.at/DataService/Post.Webservice/ShippingService.svc/secure'
     #headers = {'content-type': 'application/soap+xml'}
     headers = {
     'Accept-Encoding': 'gzip,deflate',
     'Content-Type': 'text/xml;charset=UTF-8',
     'SOAPAction': 'http://post.ondot.at/IShippingService/ImportShipment',
-    'Host': 'abn-plc.post.at',
+    'Host': 'plc.post.at',
     'Connection': 'Keep-Alive',
     'User-Agent': 'Apache-HttpClient/4.1.1 (java 1.5)',
 }

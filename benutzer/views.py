@@ -56,7 +56,7 @@ def marke_model(request):
 
 def terms_condition(request):
     # send_mail(
-    #     'FixMeinHandy - Thanks for order from us',  # subject of mail
+    #     'Ihr Reparaturauftrag bei FixMeinHandy',  # subject of mail
     #     'email_body',  # body of mail
     #     'office@fixmeinhandy.at',  # Your email address
     #     ['suvosorkar7uu8@gmail.com'],  # Recipient email address(es)
@@ -198,7 +198,7 @@ def kundendaten_get(request):
                 )
 
                 send_mail(
-                    'FixMeinHandy - Thanks for order from us',  # subject of mail
+                    'Ihr Reparaturauftrag bei FixMeinHandy',  # subject of mail
                     email_body,  # body of mail
                     'office@fixmeinhandy.at',  # Your email address
                     [var_Auftrag.email],  # Recipient email address(es)
@@ -249,7 +249,7 @@ def kundendaten_get(request):
                 get_profile.save()
 
         send_mail(
-            'FixMeinHandy - Thanks for order from us', #subject of mail
+            'Ihr Reparaturauftrag bei FixMeinHandy', #subject of mail
             email_body, # body of mail
             'office@fixmeinhandy.at',  # Your email address
             [var_Auftrag.email],  # Recipient email address(es)
