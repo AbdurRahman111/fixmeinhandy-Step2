@@ -77,12 +77,11 @@ def myorder_download_invoice(request):
     if request.user.is_authenticated:
         if request.method == "POST":
             Auftrag_id = request.POST.get('Auftrag_id')
-            print('paglu test')
+            # print('paglu test')
             # print(Auftrag_id)
 
             get_Response_Of_PDF = AuftragPdfResponseApi.objects.get(Auftrag=Auftrag.objects.get(id = Auftrag_id))
-            str_to_byte = bytes(get_Response_Of_PDF.response, 'utf-8')
-            buffer = BytesIO(str_to_byte)
+            buffer = BytesIO(get_Response_Of_PDF.response)
             response = FileResponse(buffer, as_attachment=True, filename='sendung.pdf')
             return response
     else:

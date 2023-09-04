@@ -34,4 +34,4 @@ class Auftrag(models.Model):
 
 class AuftragPdfResponseApi(models.Model):
     Auftrag = models.OneToOneField(Auftrag, on_delete=models.CASCADE)
-    response = models.TextField()
+    response = models.BinaryField()
