@@ -37,14 +37,15 @@ class Schadensart_in_models(admin.TabularInline):
     extra = 1  # Number of empty forms to display
 class MarkeTable_show(admin.ModelAdmin):
     inlines = [models_in_marke]
-    list_display = ['id', 'Serial_Number', 'Name']
+    list_display = ['Serial_Number', 'Name']
     search_fields = ['id', 'Name']
+    ordering = ['Serial_Number']
 admin.site.register(MarkeTable, MarkeTable_show)
 
 
 class ModelTable_show(admin.ModelAdmin):
     inlines = [Schadensart_in_models]
-    list_display = ['id', 'Marke','Name']
+    list_display = ['Name', 'Marke']
     search_fields = ['id', 'Marke__Name', 'Name']
 admin.site.register(ModelTable, ModelTable_show)
 

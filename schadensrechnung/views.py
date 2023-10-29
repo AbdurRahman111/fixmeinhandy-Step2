@@ -14,22 +14,68 @@ def schadensrechnung(request):
     # Transform data
     # send emails
 
-    get_all_marke = MarkeTable.objects.all().order_by('Serial_Number')
+    # list_brands = ['Apple', 'Samsung', 'Huawei', 'Xiaomi', 'OnePlus', 'Google', 'HTC', 'LG', 'Nokia', 'Sony', 'Vivo',
+    #                'Oppo']
+    # var_count = 0
+    # for marke in list_brands:
+    #     var_count = var_count + 1
+    #     print(marke)
+    #     Var_MarkeTable = MarkeTable(Serial_Number=var_count, Name=marke)
+    #     Var_MarkeTable.save()
+    #
+    #     fp = open(os.path.join(settings.BASE_DIR, 'schadensrechnung/static/schadensrechnung/json/marken_namen.json'))
+    #     marken_namen = json.load(fp)
+    #     modelle = marken_namen[marke]
+    #     print(modelle)
+    #
+    #     var_count_marke = 0
+    #     for model in modelle:
+    #         print("marke: "+marke)
+    #         print(model)
+    #         var_count_marke = var_count_marke+1
+    #         var_ModelTable = ModelTable(Serial_Number=var_count_marke, Marke=Var_MarkeTable, Name=model)
+    #         var_ModelTable.save()
+    #
+    #         fp = open(os.path.join(settings.BASE_DIR, 'schadensrechnung/static/schadensrechnung/json/preise.json'))
+    #         preise = json.load(fp)
+    #         print("model:", model)
+    #         # print(preise)
+    #         modelle2 = preise[model]
+    #         print(modelle2)
+    #
+    #         var_count_model = 0
+    #         for key, value in modelle2.items():
+    #             var_count_model = var_count_model + 1
+    #             print(key, value)
+    #             var_SchadensartTable = SchadensartTable(Serial_Number=var_count_model, Marke=Var_MarkeTable, Model=var_ModelTable, Name=key, Price=value)
+    #             var_SchadensartTable.save()
 
+    get_all_marke = MarkeTable.objects.all().order_by('Serial_Number')
     return render(request, 'schadensrechnung/home.html', {'name': 'Mosh', 'get_all_marke':get_all_marke})
 
 
 def get_handy_namen(request):
     marke = request.GET.get('selected_value')
-    # print('marke')
-    # print(marke)
+    # print("Marke:", marke)
+
     # fp = open(os.path.join(settings.BASE_DIR, 'schadensrechnung/static/schadensrechnung/json/marken_namen.json'))
     # marken_namen = json.load(fp)
-    # # print("Marke:", marke)
     # modelle = marken_namen[marke]
+    # print(modelle)
+    # get_marke = MarkeTable.objects.get(Name=marke)
+    # print('get_marke')
+    # print(get_marke)
+
+    # var_count = 0
+    # for i in modelle:
+    #     var_count = var_count+1
+    #     print(i)
+    #     var_ModelTable = ModelTable(Serial_Number=var_count, Marke=get_marke, Name=i)
+    #     var_ModelTable.save()
+
 
     get_all_models_by_marke = ModelTable.objects.filter(Marke__Name=marke).order_by('Serial_Number')
-
+    # print(get_all_models_by_marke)
 
     options = [{'value': '0', 'label': 'Bitte wählen Sie ein Model ...'}]
     for name in get_all_models_by_marke:
@@ -42,18 +88,26 @@ def get_handy_namen(request):
 
 def get_schadensart(request):
     model = request.GET.get('selected_value')
+
+    # print("model:", model)
     # fp = open(os.path.join(settings.BASE_DIR, 'schadensrechnung/static/schadensrechnung/json/preise.json'))
     # preise = json.load(fp)
-    # # print("model:", model)
-    # # print(preise)
+    # print(preise)
     # modelle = preise[model]
+    # print(modelle)
+
+    # get_model= ModelTable.objects.get(Name=model)
+
+    # var_count = 0
+    # for key, value in modelle.items():
+    #     var_count = var_count + 1
+    #     print(key, value)
+    #     var_SchadensartTable = SchadensartTable(Serial_Number=var_count, Model=get_model, Name=key, Price=value)
+    #     var_SchadensartTable.save()
+    #     options.append({'value': value, 'label': key})
 
     get_damages_price_by_model = SchadensartTable.objects.filter(Model__Name=model).order_by('Serial_Number')
-
     options = [{'value': '0', 'label': 'Bitte wählen Sie die Schadensart ...'}]
-    # for key, value in modelle.items():
-    #     # print(key, value)
-    #     options.append({'value': value, 'label': key})
     for damages_price in get_damages_price_by_model:
         options.append({'value': damages_price.Price, 'label': damages_price.Name})
     return JsonResponse({'options': options})

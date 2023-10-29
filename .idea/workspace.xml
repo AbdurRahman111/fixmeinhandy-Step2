@@ -5,14 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/benutzer/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/benutzer/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/benutzer/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/benutzer/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benutzer/templates/benutzer/kundendaten.html" beforeDir="false" afterPath="$PROJECT_DIR$/benutzer/templates/benutzer/kundendaten.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benutzer/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/benutzer/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fixmeinhandy/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/fixmeinhandy/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fixmeinhandy/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/fixmeinhandy/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schadensrechnung/static/admin/js/cancel.js" beforeDir="false" afterPath="$PROJECT_DIR$/schadensrechnung/static/admin/js/cancel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schadensrechnung/static/admin/js/popup_response.js" beforeDir="false" afterPath="$PROJECT_DIR$/schadensrechnung/static/admin/js/popup_response.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schadensrechnung/templates/schadensrechnung/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/schadensrechnung/templates/schadensrechnung/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/schadensrechnung/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/schadensrechnung/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -53,5 +45,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

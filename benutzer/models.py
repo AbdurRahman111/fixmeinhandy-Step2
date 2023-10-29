@@ -29,6 +29,7 @@ class SchadensartTable(models.Model):
     class Meta:
         verbose_name_plural = 'Schadensart Table'
     Serial_Number = models.IntegerField(default=0)
+    Marke = models.ForeignKey(MarkeTable, on_delete=models.CASCADE, default=None)
     Model = models.ForeignKey(ModelTable, on_delete=models.CASCADE)
     Name = models.CharField(max_length=255)
     Price = models.FloatField()
