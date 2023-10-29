@@ -36,3 +36,13 @@ urlpatterns = [
     re_path(r'^\.well-known/acme-challenge/(?P<path>.*)$', serve, {'document_root': '/var/www/fixmeinhandy/.well-known/acme-challenge'}),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+
+
+
+if 'grappelli' in settings.INSTALLED_APPS:
+    urlpatterns += [
+        path('grappelli/', include('grappelli.urls')),
+    ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

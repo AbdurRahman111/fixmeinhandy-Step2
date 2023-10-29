@@ -127,11 +127,25 @@
                <input type="text" name="art" value="{{ art }}" class="textinput form-control" id="id_Schadensart" readonly>
             </div>
          </div>
+         <div id="div_id_protector_input" class="form-group">
+            <label for="div_id_protector_input" class=" requiredField">
+               Möchten Sie, dass wir einen Displayschutz für Sie anbringen? Zusätzliche Kosten 20€
+            </label>
+            <div>
+               <select class="textinput form-control" name="screen_protector_status" onchange="protector_cost_function(this.value)">
+                  <option value="yes" selected>Ja</option>
+                  <option value="no">Nein</option>
+               </select>
+            </div>
+         </div>
          <div id="div_id_preis_input" class="form-group">
             <label for="id_preis_input" class=" requiredField">
             Kosten </label>
             <div>
-               <input type="text" name="preis_input" value="{{ preis_input }}" class="textinput form-control" id="id_preis_input" readonly>
+               <input type="text" name="preis_input" value="0" class="textinput form-control" id="id_preis_input" readonly>
+               <script>
+                  document.getElementById('id_preis_input').value = {{ preis_input }}+20;
+               </script>
             </div>
          </div>
          {% if not request.user.is_authenticated %}
@@ -157,10 +171,24 @@
 
 
 <script>
+
+function protector_cost_function(value){
+   console.log('running ...');
+   if (value == "yes"){
+      current_price = document.getElementById('id_preis_input').value;
+      document.getElementById('id_preis_input').value = parseFloat(current_price) + 20;
+   }
+   else{
+      current_price = document.getElementById('id_preis_input').value;
+      document.getElementById('id_preis_input').value = parseFloat(current_price) - 20;
+   }
+}
+
+
+
+
+
 function checkInputEnglish(input_id) {
-
-
-
     var inputElement = document.getElementById("englishInput"+"_"+input_id);
     var errorMessageElement = document.getElementById("mynewmessage"+"_"+input_id);
     var errorMessageElement2 = document.getElementById("myElement");

@@ -129,19 +129,21 @@
                                 <label for="marke">Marke</label>
                                 <select class="form-select" id="marke" name="marke" onchange="fetchHandyName(this.value)" required>
                                     <option value="0">Bitte wählen Sie einen Hersteller ...</option>
-                                    <option value="Apple">Apple</option>
-                                    <option value="Samsung">Samsung</option>
-                                    <option value="Huawei">Huawei</option>
-                                    <option value="Xiaomi">Xiaomi</option>
-                                    <option value="OnePlus">OnePlus</option>
-                                    <option value="Google">Google</option>
-                                    <option value="HTC">HTC</option>
-                                    <option value="LG">LG</option>
-                                    <option value="Nokia">Nokia</option>
-                                    <option value="Sony">Sony</option>
-                                    <option value="Vivo">Vivo</option>
-                                    <option value="Oppo">Oppo</option>
-                                    <option value="Sonstige Modelle">Sonstige Modelle</option>
+                                    {% for marke in get_all_marke %}
+                                    <option value="{{ marke.Name }}">{{ marke.Name }}</option>
+                                    {% endfor %}
+<!--                                    <option value="Samsung">Samsung</option>-->
+<!--                                    <option value="Huawei">Huawei</option>-->
+<!--                                    <option value="Xiaomi">Xiaomi</option>-->
+<!--                                    <option value="OnePlus">OnePlus</option>-->
+<!--                                    <option value="Google">Google</option>-->
+<!--                                    <option value="HTC">HTC</option>-->
+<!--                                    <option value="LG">LG</option>-->
+<!--                                    <option value="Nokia">Nokia</option>-->
+<!--                                    <option value="Sony">Sony</option>-->
+<!--                                    <option value="Vivo">Vivo</option>-->
+<!--                                    <option value="Oppo">Oppo</option>-->
+<!--                                    <option value="Sonstige Modelle">Sonstige Modelle</option>-->
                                 </select>
                             </div>
                             <div class="form-group col-12">
@@ -177,7 +179,11 @@
 
 
                         <div id="preistag" style="display: none;">
-                            <h1 class="text-center" style="color:rgb(6,150,92); margin:20px; ">€<span class="" id="preis"></span></h1>
+                            <h1 class="text-center" style="color:rgb(6,150,92); margin:20px; ">
+                                €<span class="" id="preis"></span>*
+                                <span class="" id="preis_old"></span>
+                            </h1>
+                            <h5 class="text-center" style="color:orange;">Reparieren und sparen! Sichern Sie sich mit dem Reparaturbonus 50% der Reparaturkosten zurück, bis zu 200 Euro. Der angezeigte Preis berücksichtigt bereits den Reparaturbonus.</h5>
                             <!--                            <label for="preis_input" class=" requiredField" > Kosten </label>-->
                             <div style="margin-bottom:20px;">
                                 <input type="hidden" name="preis_input" style="text-align: center;" class="textinput form-control" id="preis_input" readonly>
@@ -202,6 +208,19 @@
                 <h2>FAQ - Häufig gestellte Fragen</h2>
             </div>
             <ul class="faq-list" data-aos="fade-up" data-aos-delay="100">
+                <li>
+                    <a data-toggle="collapse" class="collapsed" href="#faq11">So Funktioniert Der Reparaturbonus Bei Uns!<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></a>
+                    <div id="faq11" class="collapse" data-parent=".faq-list">
+                        <p>Nutzen Sie den Reparaturbonus und sparen Sie bei der Instandsetzung Ihrer Elektro- und Elektronikger&auml;te! So funktioniert&#39;s:<br />
+                        <br />
+                        1. Sie beauftragen uns mit der Reparatur Ihres defekten Ger&auml;ts.<br />
+                        2. Sie zahlen zun&auml;chst den vollen Betrag der Reparaturkosten.<br />
+                        3. Nach Abschluss der Reparatur reichen wir die Rechnung beim zust&auml;ndigen F&ouml;rderorgan ein.<br />
+                        4. Sie erhalten den Reparaturbonus in H&ouml;he von 50% der Reparaturkosten, maximal jedoch 200 Euro, auf Ihr Bankkonto &uuml;berwiesen.<br />
+                        <br />
+                        Der auf unserer Webseite angezeigte Preis f&uuml;r die Reparatur ist der Betrag nach Abzug des Reparaturbonus. Profitieren Sie von dieser F&ouml;rderaktion und geben Sie Ihren Ger&auml;ten eine zweite Chance, w&auml;hrend Sie die Umwelt sch&uuml;tzen und bares Geld sparen!</p>
+                    </div>
+                </li>
                 <li>
                     <a data-toggle="collapse" class="collapsed" href="#faq1">Wie lange dauert eine durchschnittliche Reparatur bei FixMeinHandy?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></a>
                     <div id="faq1" class="collapse" data-parent=".faq-list">
@@ -360,11 +379,23 @@
         console.log(data);
         const dataArray = data.split(",");
         console.log(dataArray);
+
         var x = document.getElementById("desciption");
         var preistag = document.getElementById("preistag");
+
+        var preis_old = document.getElementById("preis_old");
         var preis = document.getElementById("preis");
-        preis.innerHTML = dataArray[0];
-        preis_input.value = dataArray[0];
+
+        discount = dataArray[0]/2;
+        if (discount > 200){
+            discount = 200;
+        }
+        new_price = dataArray[0] - discount;
+
+        preis_old.innerHTML = `<s style="color:#FF3C1E; font-size:24px;">€${dataArray[0]}</s>`;
+        preis.innerHTML = new_price;
+
+        preis_input.value = new_price;
         preistag.style.display = "block";
     }
 

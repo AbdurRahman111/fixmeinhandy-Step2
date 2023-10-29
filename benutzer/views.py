@@ -13,6 +13,8 @@ from account.models import User_Profile
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from io import BytesIO
+from django.utils import timezone
+from django.db import models
 
 
 def marke_model(request):
@@ -104,6 +106,7 @@ def kundendaten_get(request):
         model = request.POST.get('model')
         art = request.POST.get('art')
 
+        screen_protector_status = request.POST.get('screen_protector_status')
         preis_input = request.POST.get('preis_input')
 
         geburtsdatum = request.POST.get('geburtsdatum')
@@ -112,7 +115,24 @@ def kundendaten_get(request):
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
 
-        var_Auftrag = Auftrag(email=email, vorname=vorname, nachname=nachname, geburtsdatum=geburtsdatum, Adresszeile=Adresszeile, Hausnummer=Hausnummer, Stadt=Stadt, Postleitzahl=Postleitzahl, marke=marke, model=model, Schadensart=art, kosten=preis_input, telefon=telefon)
+        today = timezone.now()
+        year = today.strftime("%Y")
+        month = today.strftime("%m")
+
+        # Get the highest existing sequence number for this month
+        highest_number = Auftrag.objects.filter(
+            Zeit__year=year,
+            Zeit__month=month
+        ).aggregate(models.Max('serial_number'))['serial_number__max'] or 0000
+
+        # Increment the highest number and format it as a 4-digit string
+        # print(type(highest_number))
+        next_number = int(highest_number) + 1
+        formatted_next_number = f"{next_number:04}"
+
+        sequence_number =  f"{year}{month}{formatted_next_number}"
+
+        var_Auftrag = Auftrag(serial_number=formatted_next_number, sequence_number=sequence_number, email=email, vorname=vorname, nachname=nachname, geburtsdatum=geburtsdatum, Adresszeile=Adresszeile, Hausnummer=Hausnummer, Stadt=Stadt, Postleitzahl=Postleitzahl, marke=marke, model=model, Schadensart=art, screen_protector_status=screen_protector_status, kosten=preis_input, telefon=telefon)
         var_Auftrag.save()
 
         if request.user.is_authenticated:

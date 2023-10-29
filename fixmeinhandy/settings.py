@@ -35,13 +35,17 @@ INSTALLED_APPS = [
     'benutzer.apps.BenutzerConfig',
     'schadensrechnung.apps.SchadensrechnungConfig',
     'crispy_forms',
+    #sort in admin penal
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sessions',
-    'account'
+    'account',
+
+
 ]
 
 MIDDLEWARE = [
@@ -67,10 +71,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.static',
             ],
         },
     },
 ]
+CSRF_COOKIE_HTTPONLY = True
 
 WSGI_APPLICATION = 'fixmeinhandy.wsgi.application'
 
