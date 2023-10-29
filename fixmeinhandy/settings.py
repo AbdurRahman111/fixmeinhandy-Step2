@@ -35,8 +35,7 @@ INSTALLED_APPS = [
     'benutzer.apps.BenutzerConfig',
     'schadensrechnung.apps.SchadensrechnungConfig',
     'crispy_forms',
-    #sort in admin penal
-    'grappelli',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
