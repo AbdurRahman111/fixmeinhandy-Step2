@@ -77,7 +77,7 @@ class Auftrag(models.Model):
 
     def __str__(self):
         main_str = str(self.Zeit).replace('-', '')[0:6]
-        return self.sequence_number+  " - " + self.vorname +" "+ self.nachname + " - [" + self.Auftrag_status+"]"
+        return str(self.sequence_number)+  " - " + str(self.vorname) +" "+ str(self.nachname) + " - [" + str(self.Auftrag_status)+"]"
 
     def save(self, *args, **kwargs):
         # Your custom logic here
@@ -153,7 +153,7 @@ class Ausgeführter_Befehl(models.Model):
 
     def __str__(self):
         main_str = str(self.Zeit).replace('-', '')[0:6]
-        return self.sequence_number + " - " + self.vorname +" "+ self.nachname + " - [" + self.Auftrag_status + "]"
+        return str(self.sequence_number) + " - " + str(self.vorname) +" "+ str(self.nachname) + " - [" + str(self.Auftrag_status) + "]"
 
 
 
