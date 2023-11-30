@@ -8,6 +8,10 @@ from benutzer.models import Auftrag, AuftragPdfResponseApi
 from django.core.files.base import ContentFile
 BASE_DIR = settings.BASE_DIR
 
+from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+
 
 def api_to_pdf(request):
     Auftrag_id = request.POST.get('Auftrag_id')
@@ -20,16 +24,17 @@ def api_to_pdf(request):
     # email = get_Auftrag.email
     # vorname_nachname = str(get_Auftrag.vorname)+" "+str(get_Auftrag.nachname)
 
-    Adresszeile = request.POST.get('Adresszeile')
+    StreetName = request.POST.get('StreetName')
     Hausnummer = request.POST.get('Hausnummer')
     Stadt = request.POST.get('Stadt')
     Postleitzahl = request.POST.get('Postleitzahl')
     email = request.POST.get('email')
     vorname_nachname = request.POST.get('vorname_nachname')
-
-    print(Adresszeile, Hausnummer, Stadt, Postleitzahl, vorname_nachname, email)
+    # print('test55')
+    # print(StreetName)
+    # print(StreetName, Hausnummer, Stadt, Postleitzahl, vorname_nachname, email)
     # Make a request to the API
-    response_code, pdf_content = post_api_request(Adresszeile, Hausnummer, Stadt, Postleitzahl, vorname_nachname, email)
+    response_code, pdf_content = post_api_request(StreetName, Hausnummer, Stadt, Postleitzahl, vorname_nachname, email)
     # print('response_code, pdf_content')
     # print(type(pdf_content))
     # print(response_code, pdf_content)
@@ -46,8 +51,48 @@ def api_to_pdf(request):
         var_Auftrag_Pdf_ResponseApi.save()
 
         response = FileResponse(buffer, as_attachment=True, filename='sendung.pdf')
-        return response
 
+        email_body = render_to_string(
+            'benutzer/order_email.html',
+            {
+                'first_name': get_Auftrag.vorname,
+                'last_name': get_Auftrag.nachname,
+                'email': get_Auftrag.email,
+                'product': str(get_Auftrag.marke) + " " + str(get_Auftrag.model),
+                'total_bill': get_Auftrag.kosten,
+                'full_address': str(get_Auftrag.Adresszeile) + " " + str(get_Auftrag.Hausnummer) + " " + str(
+                    get_Auftrag.Stadt) + " " + str(get_Auftrag.Postleitzahl),
+                'city': get_Auftrag.Stadt,
+                'postal_code': get_Auftrag.Postleitzahl,
+                'phone': get_Auftrag.telefon,
+                'marke': get_Auftrag.marke,
+                'model': get_Auftrag.model,
+                'Schadensart': get_Auftrag.Schadensart,
+            }
+        )
+        # send_mail(
+        #     'Ihr Reparaturauftrag bei FixMeinHandy',  # subject of mail
+        #     email_body,  # body of mail
+        #     'office@fixmeinhandy.at',  # Your email address
+        #     [get_Auftrag.email],  # Recipient email address(es)
+        #     fail_silently=True,
+        # )
+
+        # Create an EmailMessage instance
+        email = EmailMessage(
+            'Ihr Reparaturauftrag bei FixMeinHandy',  # subject of mail
+            email_body,  # body of mail (HTML content)
+            'office@fixmeinhandy.at',  # Your email address
+            [get_Auftrag.email],  # Recipient email address(es)
+        )
+        # Attach the PDF file to the email
+        email.attach('sendung.pdf', response.getvalue(), 'application/pdf')
+        # Send the email
+        email.send(fail_silently=True)
+
+        buffer = BytesIO(var_Auftrag_Pdf_ResponseApi.response)
+        response = FileResponse(buffer, as_attachment=True, filename='sendung.pdf')
+        return response
     else:
         return HttpResponse('API Fehler!', status=400)
 

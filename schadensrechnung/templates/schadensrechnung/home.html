@@ -1,7 +1,38 @@
 {% extends "schadensrechnung/base.html" %}
 {% load static %}
 {% block content %}
+<style>
+.bedge_css {
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    color: #fff;
+    background-color: rgb(6,150,92);
+    font-size:20px; margin-right:5px; margin-top:5px;
+}
 
+.sub_css {
+        display: inline-block;
+        padding: 0.25em 0.4em;
+        font-size: 62%;
+        font-weight: 700;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: 1.25rem;
+        transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        color: #fff;
+        background-color: red;
+}
+</style>
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="d-flex align-items-center">
 
@@ -155,7 +186,7 @@
                         </div>
                         <div class="form-group">
                             <label for="art">Schadensart</label>
-                            <select class="form-select" id="art" name="art" onchange="show_schadensartPreis(this.value)" disabled>
+                            <select class="form-select" id="art" name="art" onchange="show_schadensartPreis(this.value, 'add')" disabled>
                                 <option value="0">Bitte wählen Sie die Schadensart ...</option>
                                 <!--                                <option value="1">Display & Touchscreen</option>-->
                                 <!--                                <option value="2">Akku bzw. Batterieaustausch</option>-->
@@ -172,11 +203,17 @@
                                 <!--                                <option value="13">Sonstige Reparaturen</option>-->
                             </select>
                         </div>
+
+                        <div id="damage_list_div" style="margin-top: 8px; display: none;">
+                        <!-- damage list will show here-->
+                        </div>
+                        <input name="input_array_damages_list" id="input_array_damages_list" type="hidden">
+
+
                         <div class="form-group" id="desciption" style="display: none;">
                             <label for="beschreibung">Beschreibung</label>
                             <textarea class="form-control" id="beschreibung" rows="10"></textarea>
                         </div>
-
 
                         <div id="preistag" style="display: none;">
                             <h1 class="text-center" style="color:rgb(6,150,92); margin:20px; ">
@@ -186,7 +223,8 @@
                             <h5 class="text-center" style="color:orange;">Reparieren und sparen! Sichern Sie sich mit dem Reparaturbonus 50% der Reparaturkosten zurück, bis zu 200 Euro. Der angezeigte Preis berücksichtigt bereits den Reparaturbonus.</h5>
                             <!--                            <label for="preis_input" class=" requiredField" > Kosten </label>-->
                             <div style="margin-bottom:20px;">
-                                <input type="hidden" name="preis_input" style="text-align: center;" class="textinput form-control" id="preis_input" readonly>
+                                <input type="hidden" name="preis_input" style="text-align: center;" class="textinput form-control" id="preis_input">
+                                <input type="hidden" name="preis_input_orginal" id="preis_input_orginal">
                             </div>
                         </div>
                         <!--                        <div class="my-3">-->
@@ -309,6 +347,11 @@
     var SCHADEN = '-';
 
     function fetchHandyName(selectedValue) {
+        array_damages_list = [];
+        total_orginal_damage_price = 0;
+        total_discount_damage_price = 0;
+        document.getElementById("damage_list_div").style.display='none';
+
         set_schadensart_default();
         console.log('valeynkehincwjiojiowejiweoi');
         console.log(selectedValue);
@@ -334,6 +377,11 @@
 
 
     function setHandyName(selectedValue) {
+        array_damages_list = [];
+        total_orginal_damage_price = 0;
+        total_discount_damage_price = 0;
+        document.getElementById("damage_list_div").style.display='none';
+
         console.log('monnaa');
         console.log(selectedValue);
         set_schadensart_default();
@@ -374,9 +422,15 @@
         });
     }
 
+    let array_damages_list = [];
+    let total_orginal_damage_price = 0;
+    let total_discount_damage_price = 0;
+    console.log(total_orginal_damage_price, total_discount_damage_price);
 
-    function show_schadensartPreis(data) {
+    function show_schadensartPreis(data, todo) {
+        document.getElementById('art').selectedIndex = 0;
         console.log(data);
+        console.log(todo);
         const dataArray = data.split(",");
         console.log(dataArray);
 
@@ -386,18 +440,62 @@
         var preis_old = document.getElementById("preis_old");
         var preis = document.getElementById("preis");
 
-        discount = dataArray[0]/2;
+        if (array_damages_list[dataArray[1]] != undefined){
+            console.log('item is exist!');
+            if(todo == 'remove'){
+                console.log('removing');
+                delete array_damages_list[dataArray[1]]
+                total_orginal_damage_price = total_orginal_damage_price - parseFloat(dataArray[0]);
+                total_discount_damage_price = total_discount_damage_price - parseFloat(dataArray[0]);
+            }
+        }
+        else{
+            if(todo == 'add'){
+                console.log('adding');
+                array_damages_list[dataArray[1]] = [dataArray[0], dataArray[1]];
+                total_orginal_damage_price = total_orginal_damage_price + parseFloat(dataArray[0]);
+                total_discount_damage_price = total_discount_damage_price + parseFloat(dataArray[0]);
+            }
+        }
+        discount = total_discount_damage_price/2;
         if (discount > 200){
             discount = 200;
         }
-        new_price = dataArray[0] - discount;
+        new_price = total_orginal_damage_price - discount;
+        preis_old.innerHTML = `<s style="color:#FF3C1E; font-size:24px;">€${total_orginal_damage_price}</s>`;
 
-        preis_old.innerHTML = `<s style="color:#FF3C1E; font-size:24px;">€${dataArray[0]}</s>`;
+        //if (total_orginal_damage_price >= 400){
+        //    console.log('greater than or equal to 400');
+        //} else {
+        //    console.log('less than 400');
+        //}
+
+        //console.log(array_damages_list);
+        //console.log(total_orginal_damage_price);
+        //console.log(new_price);
+
         preis.innerHTML = new_price;
-
         preis_input.value = new_price;
+        preis_input_orginal.value = total_orginal_damage_price;
         preistag.style.display = "block";
+
+        html_for_damage = "";
+        let list_all_damage_price = []
+        for (var damage in array_damages_list){
+          //console.log('array_damages_list[damage]');
+          //console.log(array_damages_list[damage]);
+          list_all_damage_price.push([array_damages_list[damage][0], array_damages_list[damage][1]])
+          html_for_damage = html_for_damage + `<span style="" class="bedge_css">${array_damages_list[damage][1]} <span style="color:orange;">(€${array_damages_list[damage][0]})</span>
+                                <button type="button" class="btn sub_css" style="" onclick="show_schadensartPreis('${array_damages_list[damage]}', 'remove')">x</button>
+                            </span>`;
+        }
+        //console.log(list_all_damage_price);
+        document.getElementById('damage_list_div').innerHTML = html_for_damage;
+        document.getElementById('damage_list_div').style.display = 'block';
+        //console.log(JSON.stringify(list_all_damage_price));
+        $('#input_array_damages_list').val(JSON.stringify(list_all_damage_price));
     }
+
 
     function fetchPreis(selectedValue) {
         console.log('llllllllllllllllllllllllll');

@@ -47,15 +47,18 @@ class Auftrag(models.Model):
     nachname = models.CharField(max_length=30)
     geburtsdatum = models.CharField(max_length=10, null=True, blank=True)
     # ort = models.CharField(max_length=30)
-    Adresszeile = models.CharField(max_length=50)
-    Hausnummer = models.CharField(max_length=50, default='')
-    Stadt = models.CharField(max_length=50, default='')
+    Adresszeile = models.TextField()
+    StreetName = models.CharField(max_length=255, default='', null=True, blank=True)
+    Hausnummer = models.CharField(max_length=255, default='', null=True, blank=True)
+    Stadt = models.CharField(max_length=255, default='', null=True, blank=True)
     Postleitzahl = models.IntegerField()
+    Country = models.CharField(max_length=255, default='', null=True, blank=True)
+    State = models.CharField(max_length=255, default='', null=True, blank=True)
     handy = models.CharField(max_length=30, null=True, blank=True)
     # schaden = models.CharField(max_length=30)
     marke = models.CharField(max_length=30)
     model = models.CharField(max_length=30)
-    Schadensart = models.CharField(max_length=30)
+    Schadensart = models.TextField()
     screen_protector_status_options = (
         ('yes', 'yes'),
         ('no', 'no'),

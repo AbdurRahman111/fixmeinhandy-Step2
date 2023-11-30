@@ -18,7 +18,7 @@
                     <form action="{% url 'download_sendung' %}" method="POST" class="php-email-form_new" id="downloading_form">
                         {% csrf_token %}
                         <input type="hidden" name="Auftrag_id" id="Auftrag_id" value="{{Auftrag_id}}">
-                        <input type="hidden" name="Adresszeile" id="Adresszeile" value="{{Adresszeile}}">
+                        <input type="hidden" name="StreetName" id="StreetName" value="{{StreetName}}">
                         <input type="hidden" name="Hausnummer" id="Hausnummer" value="{{Hausnummer}}">
                         <input type="hidden" name="Stadt" id="Stadt" value="{{Stadt}}">
                         <input type="hidden" name="Postleitzahl" id="Postleitzahl" value="{{Postleitzahl}}">

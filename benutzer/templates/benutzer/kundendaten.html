@@ -7,7 +7,26 @@
     .error-message {
       color: red;
     }
+
+    .bedge_css {
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    color: #fff;
+    background-color: rgb(6,150,92);
+    font-size:20px; margin-right:5px; margin-top:5px;
+}
 </style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyAl2oIaPE2OEn7vk_BhEhdOPplKzOGMRpY"></script>
 
 
 <section id="services" class="contact section-bg" style="margin-top:35px;">
@@ -73,31 +92,54 @@
 <!--               <span id="mynewmessage_ort" style="color:red"></span>-->
 <!--            </div>-->
             <div id="div_id_Adresszeile" class="form-group">
-               <label for="englishInput_Adresszeile" class=" requiredField">
-               Adresszeile<span class="asteriskField">*</span> </label>
-               <div> <input type="text" name="Adresszeile" maxlength="50" class="textinput textInput form-control" required="" id="englishInput_Adresszeile" onkeyup="checkInputEnglish('Adresszeile')" value="{% if get_profile.Adresszeile %}{{ get_profile.Adresszeile }}{% endif %}">
-               <input type="hidden" value="0" name="hidden_input_error_status_Adresszeile" id="hidden_input_error_status_Adresszeile">
+               <label for="englishInput_Adresszeile" class=" requiredField">Adresszeile<span class="asteriskField">*</span> </label>
+               <div>
+                  <input type="text" name="Adresszeile" class="textinput textInput form-control" required="" id="englishInput_Adresszeile" value="{% if get_profile.Adresszeile %}{{ get_profile.Adresszeile }}{% endif %}">
+<!--                  <input type="hidden" value="0" name="hidden_input_error_status_Adresszeile" id="hidden_input_error_status_Adresszeile">-->
                </div>
                <span id="mynewmessage_Adresszeile" style="color:red"></span>
             </div>
-            <div id="div_id_Hausnummer" class="form-group">
-               <label for="englishInput_Hausnummer" class=" requiredField">
-               Hausnummer<span class="asteriskField">*</span> </label>
-               <div> <input type="text" name="Hausnummer" maxlength="50" class="textinput textInput form-control" required="" id="englishInput_Hausnummer" value="{% if get_profile.Hausnummer %}{{ get_profile.Hausnummer }}{% endif %}"> </div>
-            </div>
-            <div id="div_id_Stadt" class="form-group">
-               <label for="englishInput_Stadt" class=" requiredField">
-               Stadt<span class="asteriskField">*</span> </label>
-               <div> <input type="text" name="Stadt" maxlength="50" class="textinput textInput form-control" required="" id="englishInput_Stadt" onkeyup="checkInputEnglish('Stadt')" value="{% if get_profile.Stadt %}{{ get_profile.Stadt }}{% endif %}">
-               <input type="hidden" value="0" name="hidden_input_error_status_Stadt" id="hidden_input_error_status_Stadt">
-               </div>
-               <span id="mynewmessage_Stadt" style="color:red"></span>
-            </div>
-            <div id="div_id_Postleitzahl" class="form-group">
-               <label for="englishInput_Postleitzahl" class=" requiredField">
-               Postleitzahl<span class="asteriskField">*</span> </label>
-               <div> <input type="number" name="Postleitzahl" class="numberinput form-control" required="" id="englishInput_Postleitzahl" value="{% if get_profile.Postleitzahl %}{{ get_profile.Postleitzahl }}{% endif %}"> </div>
-            </div>
+
+             <input type="hidden" name="streetName" id="englishInput_streetName">
+             <input type="hidden" name="Hausnummer" id="englishInput_Hausnummer">
+             <input type="hidden" name="Stadt" id="englishInput_Stadt">
+             <input type="hidden" name="Postleitzahl" id="englishInput_Postleitzahl">
+             <input type="hidden" name="country" id="englishInput_country">
+             <input type="hidden" name="state" id="englishInput_state">
+
+<!--            <div id="div_id_streetName" class="form-group">-->
+<!--               <label for="englishInput_streetName" class=" requiredField">-->
+<!--               StreetName<span class="asteriskField">*</span> </label>-->
+<!--               <div> <input type="text" name="streetName" class="textinput textInput form-control" required="" id="englishInput_streetName" value="{% if get_profile.Hausnummer %}{{ get_profile.Hausnummer }}{% endif %}" readonly> </div>-->
+<!--            </div>-->
+<!--            <div id="div_id_Hausnummer" class="form-group">-->
+<!--               <label for="englishInput_Hausnummer" class=" requiredField">-->
+<!--               Hausnummer<span class="asteriskField">*</span> </label>-->
+<!--               <div> <input type="text" name="Hausnummer" class="textinput textInput form-control" required="" id="englishInput_Hausnummer" value="" readonly> </div>-->
+<!--            </div>-->
+<!--            <div id="div_id_Stadt" class="form-group">-->
+<!--               <label for="englishInput_Stadt" class=" requiredField">-->
+<!--               Stadt<span class="asteriskField">*</span> </label>-->
+<!--               <div> <input type="text" name="Stadt" class="textinput textInput form-control" required="" id="englishInput_Stadt" onkeyup="checkInputEnglish('Stadt')" value="" readonly>-->
+<!--               <input type="hidden" value="0" name="hidden_input_error_status_Stadt" id="hidden_input_error_status_Stadt">-->
+<!--               </div>-->
+<!--               <span id="mynewmessage_Stadt" style="color:red"></span>-->
+<!--            </div>-->
+<!--            <div id="div_id_Postleitzahl" class="form-group">-->
+<!--               <label for="englishInput_Postleitzahl" class=" requiredField">-->
+<!--               Postleitzahl<span class="asteriskField">*</span> </label>-->
+<!--               <div> <input type="text" name="Postleitzahl" class="numberinput form-control" required="" id="englishInput_Postleitzahl" value="" readonly> </div>-->
+<!--            </div>-->
+<!--            <div id="div_id_country" class="form-group">-->
+<!--               <label for="englishInput_country" class=" requiredField">-->
+<!--               Country<span class="asteriskField">*</span> </label>-->
+<!--               <div> <input type="text" name="country" class="numberinput form-control" required="" id="englishInput_country" value="" readonly> </div>-->
+<!--            </div>-->
+<!--            <div id="div_id_state" class="form-group">-->
+<!--               <label for="englishInput_state" class=" requiredField">-->
+<!--               State<span class="asteriskField">*</span> </label>-->
+<!--               <div> <input type="text" name="state" class="numberinput form-control" required="" id="englishInput_state" value="" readonly> </div>-->
+<!--            </div>-->
          </fieldset>
          <div id="div_geburtsdatum" class="form-group" style="margin-top: -28px">
             <label for="dob" class=" requiredField">  Geburtsdatum<span class="asteriskField">*</span> <b> (TT.MM.JJJJ)</b></label>
@@ -122,9 +164,12 @@
          </div>
          <div id="div_id_Schadensart" class="form-group">
             <label for="id_Schadensart" class=" requiredField">
-            Schadensart </label>
+            Schadensart </label><br>
+            {% for damage in input_array_damages_list %}
+            <span class="bedge_css">{{ damage.1 }}</span>
+            {% endfor %}
             <div>
-               <input type="text" name="art" value="{{ art }}" class="textinput form-control" id="id_Schadensart" readonly>
+               <input type="hidden" name="art" value="{% for damage in input_array_damages_list %}{{ damage.1 }}{% if not forloop.last %}, {% endif %}{% endfor %}" class="textinput form-control" id="id_Schadensart" readonly>
             </div>
          </div>
          <div id="div_id_protector_input" class="form-group">
@@ -148,6 +193,17 @@
                </script>
             </div>
          </div>
+
+         <div id="div_id_main_price" class="form-group">
+<!--            <label for="id_main_price" class=" requiredField"> Main Price </label>-->
+            <div>
+               <input type="hidden" name="main_price" value="{{ main_price }}" class="textinput form-control" id="id_main_price" readonly>
+               <script>
+                  document.getElementById('id_main_price').value = {{ main_price }}+20;
+               </script>
+            </div>
+         </div>
+
          {% if not request.user.is_authenticated %}
          <div class="form-group">
             <div class="checkbox">
@@ -158,7 +214,7 @@
          <div id="password_fields"></div>
          <div class="form-group">
             <div class="checkbox">
-               <label><input type="checkbox" value="1" required> <a href="{% url 'terms_condition' %}">AGB's</a> akzeptiert.</label>
+               <label><input type="checkbox" value="1" required> <a href="{% url 'terms_condition' %}" target="_blank">AGB's</a> akzeptiert.</label>
             </div>
          </div>
          <span id="myElement" style="color:red;"></span>
@@ -169,6 +225,66 @@
    </div>
 </section>
 
+<script>
+var searchInput = 'englishInput_Adresszeile';
+
+$(document).ready(function () {
+ var autocomplete;
+ autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+  types: ['geocode'],
+  /*componentRestrictions: {
+   country: "USA"
+  }*/
+ });
+
+ google.maps.event.addListener(autocomplete, 'place_changed', function () {
+  var near_place = autocomplete.getPlace();
+
+
+  // Extract various address components
+   let streetName = '';
+   let houseNumber = '';
+   let city = '';
+   let postalCode = '';
+   let country = '';
+   let state = '';
+
+   for (const component of near_place.address_components) {
+     if (component.types.includes('route')) {
+       streetName = component.long_name;
+     } else if (component.types.includes('street_number')) {
+       houseNumber = component.long_name;
+     } else if (component.types.includes('locality')) {
+       city = component.long_name;
+     } else if (component.types.includes('postal_code')) {
+       postalCode = component.long_name;
+     } else if (component.types.includes('country')) {
+       country = component.long_name;
+     } else if (component.types.includes('administrative_area_level_1')) {
+       state = component.long_name;
+     }
+   }
+
+   console.log('Street Name:', streetName);
+   console.log('House Number:', houseNumber);
+   console.log('City:', city);
+   console.log('Postal Code:', postalCode);
+   console.log('Country:', country);
+   console.log('State:', state);
+
+
+
+   document.getElementById('englishInput_streetName').value = streetName;
+   document.getElementById('englishInput_Hausnummer').value = houseNumber;
+   document.getElementById('englishInput_Stadt').value = city;
+   document.getElementById('englishInput_Postleitzahl').value = postalCode;
+   document.getElementById('englishInput_country').value = country;
+   document.getElementById('englishInput_state').value = state;
+
+ });
+});
+</script>
+
 
 <script>
 
@@ -177,10 +293,16 @@ function protector_cost_function(value){
    if (value == "yes"){
       current_price = document.getElementById('id_preis_input').value;
       document.getElementById('id_preis_input').value = parseFloat(current_price) + 20;
+
+      main_price = document.getElementById('id_main_price').value;
+      document.getElementById('id_main_price').value = parseFloat(main_price) + 20;
    }
    else{
       current_price = document.getElementById('id_preis_input').value;
       document.getElementById('id_preis_input').value = parseFloat(current_price) - 20;
+
+      main_price = document.getElementById('id_main_price').value;
+      document.getElementById('id_main_price').value = parseFloat(main_price) - 20;
    }
 }
 
@@ -209,9 +331,9 @@ function checkInputEnglish(input_id) {
         var hidden_input_error_status_vorname = document.getElementById("hidden_input_error_status_vorname").value;
        var hidden_input_error_status_nachname = document.getElementById("hidden_input_error_status_nachname").value;
        //var hidden_input_error_status_ort = document.getElementById("hidden_input_error_status_ort").value;
-       var hidden_input_error_status_Adresszeile = document.getElementById("hidden_input_error_status_Adresszeile").value;
-       var hidden_input_error_status_Stadt = document.getElementById("hidden_input_error_status_Stadt").value;
-       if (hidden_input_error_status_vorname == 0 && hidden_input_error_status_nachname == 0 && hidden_input_error_status_Adresszeile == 0 && hidden_input_error_status_Stadt){
+       //var hidden_input_error_status_Adresszeile = document.getElementById("hidden_input_error_status_Adresszeile").value;
+       //var hidden_input_error_status_Stadt = document.getElementById("hidden_input_error_status_Stadt").value;
+       if (hidden_input_error_status_vorname == 0 && hidden_input_error_status_nachname == 0){
        document.getElementById('submit_button').innerHTML = `<button type="submit">Reparatur anfragen</button>`;
        }
 

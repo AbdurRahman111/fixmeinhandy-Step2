@@ -15,18 +15,28 @@ from django.template.loader import render_to_string
 from io import BytesIO
 from django.utils import timezone
 from django.db import models
-
+import json
 
 def marke_model(request):
     if request.method == "POST":
         marke = request.POST.get('marke')
         model = request.POST.get('model')
         art = request.POST.get('art')
+        # print(marke, model, art)
+
+        input_array_damages_list = request.POST.get('input_array_damages_list')
+        # print(input_array_damages_list)
+        input_array_damages_list = json.loads(input_array_damages_list)
+        print(input_array_damages_list)
+
         art_array = art.split(",")
-        # print(art_array)
+        print(art_array)
         # print(art_array[0])
         # print(art_array[1])
         preis_input = request.POST.get('preis_input')
+        preis_input_orginal = request.POST.get('preis_input_orginal')
+        print(preis_input, preis_input_orginal)
+        main_price = preis_input_orginal
         # print(art)
         # print('artart')
 
@@ -49,7 +59,7 @@ def marke_model(request):
         except:
             get_profile = None
 
-        context = {'marke':marke, 'model':model, 'art':art_array[1], 'form':form, 'preis_input':preis_input, 'get_profile': get_profile}
+        context = {'marke':marke, 'model':model, 'art':art_array[1], 'form':form, 'preis_input':preis_input, 'get_profile': get_profile, 'main_price':main_price, 'input_array_damages_list':input_array_damages_list}
         return render(request, 'benutzer/kundendaten.html', context)
 
     else:
@@ -98,9 +108,13 @@ def kundendaten_get(request):
         telefon = request.POST.get('telefon')
         # ort = request.POST.get('ort')
         Adresszeile = request.POST.get('Adresszeile')
+        streetName = request.POST.get('streetName')
         Hausnummer = request.POST.get('Hausnummer')
         Stadt = request.POST.get('Stadt')
         Postleitzahl = request.POST.get('Postleitzahl')
+        country = request.POST.get('country')
+        state = request.POST.get('state')
+        # print(Adresszeile, Hausnummer, Stadt, Postleitzahl)
         marke = request.POST.get('marke')
 
         model = request.POST.get('model')
@@ -108,6 +122,7 @@ def kundendaten_get(request):
 
         screen_protector_status = request.POST.get('screen_protector_status')
         preis_input = request.POST.get('preis_input')
+        main_price = request.POST.get('main_price')
 
         geburtsdatum = request.POST.get('geburtsdatum')
         # date_obj = datetime.datetime.strptime(geburtsdatum, "%d.%m.%Y").date()
@@ -132,7 +147,7 @@ def kundendaten_get(request):
 
         sequence_number =  f"{year}{month}{formatted_next_number}"
 
-        var_Auftrag = Auftrag(serial_number=formatted_next_number, sequence_number=sequence_number, email=email, vorname=vorname, nachname=nachname, geburtsdatum=geburtsdatum, Adresszeile=Adresszeile, Hausnummer=Hausnummer, Stadt=Stadt, Postleitzahl=Postleitzahl, marke=marke, model=model, Schadensart=art, screen_protector_status=screen_protector_status, kosten=preis_input, telefon=telefon)
+        var_Auftrag = Auftrag(serial_number=formatted_next_number, sequence_number=sequence_number, email=email, vorname=vorname, nachname=nachname, geburtsdatum=geburtsdatum, Adresszeile=Adresszeile, StreetName=streetName,Hausnummer=Hausnummer, Stadt=Stadt, Postleitzahl=Postleitzahl, Country=country, State=state, marke=marke, model=model, Schadensart=art, screen_protector_status=screen_protector_status, kosten=main_price, telefon=telefon)
         var_Auftrag.save()
 
         if request.user.is_authenticated:
@@ -197,36 +212,39 @@ def kundendaten_get(request):
                 messages.success(request,
                                  f'Your account has been created !!! you are now logged in as {first_name} {last_name}')
 
-                email_body = render_to_string(
-                    'benutzer/order_email.html',
-                    {
-                        'first_name': var_Auftrag.vorname,
-                        'last_name': var_Auftrag.nachname,
-                        'email': var_Auftrag.email,
-                        'product': str(var_Auftrag.marke) + " " + str(var_Auftrag.model),
-                        'total_bill': var_Auftrag.kosten,
-                        'full_address': str(var_Auftrag.Adresszeile) + " " + str(var_Auftrag.Hausnummer) + " " + str(
-                            var_Auftrag.Stadt) + " " + str(var_Auftrag.Postleitzahl),
-                        'city': var_Auftrag.Stadt,
-                        'postal_code': var_Auftrag.Postleitzahl,
-                        'phone': var_Auftrag.telefon,
-			            'marke': var_Auftrag.marke,
-                	    'model': var_Auftrag.model,
-                	    'Schadensart': var_Auftrag.Schadensart,
-                    }
-                )
+                # email_body = render_to_string(
+                #     'benutzer/order_email.html',
+                #     {
+                #         'first_name': var_Auftrag.vorname,
+                #         'last_name': var_Auftrag.nachname,
+                #         'email': var_Auftrag.email,
+                #         'product': str(var_Auftrag.marke) + " " + str(var_Auftrag.model),
+                #         'total_bill': var_Auftrag.kosten,
+                #         'full_address': str(var_Auftrag.Adresszeile) + " " + str(var_Auftrag.Hausnummer) + " " + str(
+                #             var_Auftrag.Stadt) + " " + str(var_Auftrag.Postleitzahl),
+                #         'city': var_Auftrag.Stadt,
+                #         'postal_code': var_Auftrag.Postleitzahl,
+                #         'phone': var_Auftrag.telefon,
+			    #         'marke': var_Auftrag.marke,
+                # 	    'model': var_Auftrag.model,
+                # 	    'Schadensart': var_Auftrag.Schadensart,
+                #     }
+                # )
+                #
+                # send_mail(
+                #     'Ihr Reparaturauftrag bei FixMeinHandy',  # subject of mail
+                #     email_body,  # body of mail
+                #     'office@fixmeinhandy.at',  # Your email address
+                #     [var_Auftrag.email],  # Recipient email address(es)
+                #     fail_silently=True,
+                # )
 
-                send_mail(
-                    'Ihr Reparaturauftrag bei FixMeinHandy',  # subject of mail
-                    email_body,  # body of mail
-                    'office@fixmeinhandy.at',  # Your email address
-                    [var_Auftrag.email],  # Recipient email address(es)
-                    fail_silently=True,
-                )
 
-
-                context = {'Adresszeile': var_Auftrag.Adresszeile, 'Hausnummer': var_Auftrag.Hausnummer,
-                           'Stadt': var_Auftrag.Stadt, 'Postleitzahl': var_Auftrag.Postleitzahl,
+                context = {'StreetName':var_Auftrag.StreetName,
+                           'Adresszeile': var_Auftrag.Adresszeile,
+                           'Hausnummer': var_Auftrag.Hausnummer,
+                           'Stadt': var_Auftrag.Stadt,
+                           'Postleitzahl': var_Auftrag.Postleitzahl,
                            'email': var_Auftrag.email,
                            'vorname_nachname': str(var_Auftrag.vorname) + " " + str(var_Auftrag.nachname),
                            'Auftrag_id': var_Auftrag.id}
@@ -242,23 +260,7 @@ def kundendaten_get(request):
 
         messages.success(request, f'Order created for {var_Auftrag.vorname} {var_Auftrag.nachname}!')
 
-        email_body = render_to_string(
-            'benutzer/order_email.html',
-            {
-                'first_name': var_Auftrag.vorname,
-                'last_name': var_Auftrag.nachname,
-                'email': var_Auftrag.email,
-                'product': str(var_Auftrag.marke)+ " " + str(var_Auftrag.model),
-                'total_bill': var_Auftrag.kosten,
-                'full_address' : str(var_Auftrag.Adresszeile) + " " + str(var_Auftrag.Hausnummer) + " " + str(var_Auftrag.Stadt) + " " + str(var_Auftrag.Postleitzahl),
-                'city' : var_Auftrag.Stadt,
-                'postal_code' :var_Auftrag.Postleitzahl,
-                'phone' : var_Auftrag.telefon,
-		        'marke': var_Auftrag.marke,
-                'model': var_Auftrag.model,
-                'Schadensart': var_Auftrag.Schadensart,
-            }
-        )
+
 
         if request.user.is_authenticated:
             if not User_Profile.objects.filter(user=request.user):
@@ -267,18 +269,36 @@ def kundendaten_get(request):
                                            Postleitzahl=Postleitzahl)
                 get_profile.save()
 
-        send_mail(
-            'Ihr Reparaturauftrag bei FixMeinHandy', #subject of mail
-            email_body, # body of mail
-            'office@fixmeinhandy.at',  # Your email address
-            [var_Auftrag.email],  # Recipient email address(es)
-            fail_silently=True,
-        )
 
-        context = {'Adresszeile':var_Auftrag.Adresszeile, 'Hausnummer':var_Auftrag.Hausnummer, 'Stadt':var_Auftrag.Stadt, 'Postleitzahl':var_Auftrag.Postleitzahl, 'email':var_Auftrag.email, 'vorname_nachname':str(var_Auftrag.vorname)+" "+str(var_Auftrag.nachname), 'Auftrag_id':var_Auftrag.id}
 
+        # email_body = render_to_string(
+        #     'benutzer/order_email.html',
+        #     {
+        #         'first_name': var_Auftrag.vorname,
+        #         'last_name': var_Auftrag.nachname,
+        #         'email': var_Auftrag.email,
+        #         'product': str(var_Auftrag.marke) + " " + str(var_Auftrag.model),
+        #         'total_bill': var_Auftrag.kosten,
+        #         'full_address': str(var_Auftrag.Adresszeile) + " " + str(var_Auftrag.Hausnummer) + " " + str(
+        #             var_Auftrag.Stadt) + " " + str(var_Auftrag.Postleitzahl),
+        #         'city': var_Auftrag.Stadt,
+        #         'postal_code': var_Auftrag.Postleitzahl,
+        #         'phone': var_Auftrag.telefon,
+        #         'marke': var_Auftrag.marke,
+        #         'model': var_Auftrag.model,
+        #         'Schadensart': var_Auftrag.Schadensart,
+        #     }
+        # )
+        # send_mail(
+        #     'Ihr Reparaturauftrag bei FixMeinHandy', #subject of mail
+        #     email_body, # body of mail
+        #     'office@fixmeinhandy.at',  # Your email address
+        #     [var_Auftrag.email],  # Recipient email address(es)
+        #     fail_silently=True,
+        # )
+
+        context = {'StreetName':var_Auftrag.StreetName, 'Adresszeile':var_Auftrag.Adresszeile, 'Hausnummer':var_Auftrag.Hausnummer, 'Stadt':var_Auftrag.Stadt, 'Postleitzahl':var_Auftrag.Postleitzahl, 'email':var_Auftrag.email, 'vorname_nachname':str(var_Auftrag.vorname)+" "+str(var_Auftrag.nachname), 'Auftrag_id':var_Auftrag.id}
         return render(request, "benutzer/information_page.html", context)
-
     else:
         form = KundendatenForm()
         context = {'form':form}
