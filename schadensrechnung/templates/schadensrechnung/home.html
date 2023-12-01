@@ -3,35 +3,54 @@
 {% block content %}
 <style>
 .bedge_css {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    font-size: 14px; /* Adjust font size for better consistency */
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+    color: #fff;
+    background-color: rgb(6, 150, 92);
+    margin-bottom: 5px;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.damage-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+    font-size: 14px; /* Ensure consistency with parent font size */
+}
+
+.damage-details {
+    display: flex;
+    align-items: center;
+}
+
+.damage-price {
+    color: orange;
+    margin-left: 5px;
+}
+
+.sub_css {
     display: inline-block;
     padding: 0.25em 0.4em;
-    font-size: 75%;
+    font-size: 90%;
     font-weight: 700;
     line-height: 1;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
-    border-radius: 0.25rem;
+    border-radius: 1.25rem;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     color: #fff;
-    background-color: rgb(6,150,92);
-    font-size:20px; margin-right:5px; margin-top:5px;
+    background-color: red;
 }
 
-.sub_css {
-        display: inline-block;
-        padding: 0.25em 0.4em;
-        font-size: 62%;
-        font-weight: 700;
-        line-height: 1;
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: baseline;
-        border-radius: 1.25rem;
-        transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-        color: #fff;
-        background-color: red;
-}
+
 </style>
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="d-flex align-items-center">
@@ -214,6 +233,8 @@
                             <label for="beschreibung">Beschreibung</label>
                             <textarea class="form-control" id="beschreibung" rows="10"></textarea>
                         </div>
+
+
 
                         <div id="preistag" style="display: none;">
                             <h1 class="text-center" style="color:rgb(6,150,92); margin:20px; ">
@@ -485,9 +506,15 @@
           //console.log('array_damages_list[damage]');
           //console.log(array_damages_list[damage]);
           list_all_damage_price.push([array_damages_list[damage][0], array_damages_list[damage][1]])
-          html_for_damage = html_for_damage + `<span style="" class="bedge_css">${array_damages_list[damage][1]} <span style="color:orange;">(€${array_damages_list[damage][0]})</span>
-                                <button type="button" class="btn sub_css" style="" onclick="show_schadensartPreis('${array_damages_list[damage]}', 'remove')">x</button>
-                            </span>`;
+          html_for_damage = html_for_damage + `<span style="" class="bedge_css">
+          <span class="damage-name"><b>${array_damages_list[damage][1]}</b></span>
+          <span class="damage-details">
+                <b>
+              <span class="damage-price" style="color:orange; margin-right:10px; font-size: 18px;">(€${array_damages_list[damage][0]})</span>
+              <button type="button" class="btn sub_css" style="" onclick="show_schadensartPreis('${array_damages_list[damage]}', 'remove')">x</button>
+              </span>
+              </b>
+          </span>`;
         }
         //console.log(list_all_damage_price);
         document.getElementById('damage_list_div').innerHTML = html_for_damage;

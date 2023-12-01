@@ -102,6 +102,7 @@ def myorder_download_invoice(request):
 
 def kundendaten_get(request):
     if request.method == 'POST':
+        print('Submitting...')
         vorname = request.POST.get('vorname')
         nachname = request.POST.get('nachname')
         email = request.POST.get('email')
@@ -114,7 +115,7 @@ def kundendaten_get(request):
         Postleitzahl = request.POST.get('Postleitzahl')
         country = request.POST.get('country')
         state = request.POST.get('state')
-        # print(Adresszeile, Hausnummer, Stadt, Postleitzahl)
+        print(Adresszeile, streetName, Hausnummer, Stadt, Postleitzahl, country, state)
         marke = request.POST.get('marke')
 
         model = request.POST.get('model')

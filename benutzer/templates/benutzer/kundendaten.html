@@ -92,7 +92,7 @@
 <!--               <span id="mynewmessage_ort" style="color:red"></span>-->
 <!--            </div>-->
             <div id="div_id_Adresszeile" class="form-group">
-               <label for="englishInput_Adresszeile" class=" requiredField">Adresszeile<span class="asteriskField">*</span> </label>
+               <label for="englishInput_Adresszeile" class=" requiredField">Adresszeile<span class="asteriskField">*</span><span style="color:orange;"> (Wählen Sie „Aus automatischer Vervollständigung“)</span> <br><small style="color:orange;"><b>(Hinweis: Die Adresse muss Straßenname, Hausnummer und Postleitzahl enthalten.)</b></small></label>
                <div>
                   <input type="text" name="Adresszeile" class="textinput textInput form-control" required="" id="englishInput_Adresszeile" value="{% if get_profile.Adresszeile %}{{ get_profile.Adresszeile }}{% endif %}">
 <!--                  <input type="hidden" value="0" name="hidden_input_error_status_Adresszeile" id="hidden_input_error_status_Adresszeile">-->
@@ -271,6 +271,22 @@ $(document).ready(function () {
    console.log('Postal Code:', postalCode);
    console.log('Country:', country);
    console.log('State:', state);
+
+   if (streetName == ""){
+      console.log('Need Straßenname');
+      document.getElementById('mynewmessage_Adresszeile').innerHTML = `Need Straßenname`;
+   }
+   else if (houseNumber == ""){
+      console.log('Need Hausnummer');
+      document.getElementById('mynewmessage_Adresszeile').innerHTML = `Need Hausnummer`;
+   }
+   else if (postalCode == ""){
+      console.log('Need Postleitzahl');
+      document.getElementById('mynewmessage_Adresszeile').innerHTML = `Need Postleitzahl`;
+   }else{
+      console.log('Address is ok');
+      document.getElementById('mynewmessage_Adresszeile').innerHTML = "";
+   }
 
 
 

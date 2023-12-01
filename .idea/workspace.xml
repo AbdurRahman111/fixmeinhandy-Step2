@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="13e0eccd-5eb6-4f4c-afcb-ce1eb2941ae9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/benutzer/templates/benutzer/test2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benutzer/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/benutzer/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benutzer/templates/benutzer/information_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/benutzer/templates/benutzer/information_page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benutzer/templates/benutzer/kundendaten.html" beforeDir="false" afterPath="$PROJECT_DIR$/benutzer/templates/benutzer/kundendaten.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benutzer/templates/benutzer/my_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/benutzer/templates/benutzer/my_order.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benutzer/templates/benutzer/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/benutzer/templates/benutzer/test.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benutzer/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/benutzer/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post_api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/post_api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schadensrechnung/templates/schadensrechnung/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/schadensrechnung/templates/schadensrechnung/home.html" afterDir="false" />
-    </list>
+    <list default="true" id="13e0eccd-5eb6-4f4c-afcb-ce1eb2941ae9" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

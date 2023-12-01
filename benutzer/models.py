@@ -51,7 +51,7 @@ class Auftrag(models.Model):
     StreetName = models.CharField(max_length=255, default='', null=True, blank=True)
     Hausnummer = models.CharField(max_length=255, default='', null=True, blank=True)
     Stadt = models.CharField(max_length=255, default='', null=True, blank=True)
-    Postleitzahl = models.IntegerField()
+    Postleitzahl = models.CharField(max_length=255, default='', null=True, blank=True)
     Country = models.CharField(max_length=255, default='', null=True, blank=True)
     State = models.CharField(max_length=255, default='', null=True, blank=True)
     handy = models.CharField(max_length=30, null=True, blank=True)
