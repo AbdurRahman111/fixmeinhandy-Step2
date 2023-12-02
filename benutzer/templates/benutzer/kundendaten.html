@@ -27,6 +27,8 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyAl2oIaPE2OEn7vk_BhEhdOPplKzOGMRpY"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
 <section id="services" class="contact section-bg" style="margin-top:35px;">
@@ -94,10 +96,11 @@
             <div id="div_id_Adresszeile" class="form-group">
                <label for="englishInput_Adresszeile" class=" requiredField">Adresszeile<span class="asteriskField">*</span><span style="color:orange;"> (Wählen Sie „Aus automatischer Vervollständigung“)</span> <br><small style="color:orange;"><b>(Hinweis: Die Adresse muss Straßenname, Hausnummer und Postleitzahl enthalten.)</b></small></label>
                <div>
-                  <input type="text" name="Adresszeile" class="textinput textInput form-control" required="" id="englishInput_Adresszeile" value="{% if get_profile.Adresszeile %}{{ get_profile.Adresszeile }}{% endif %}">
-<!--                  <input type="hidden" value="0" name="hidden_input_error_status_Adresszeile" id="hidden_input_error_status_Adresszeile">-->
+                  <input type="text" onkeyup="checkInputEnglish('Adresszeile')" name="Adresszeile" class="textinput textInput form-control" required="" id="englishInput_Adresszeile" value="{% if get_profile.Adresszeile %}{{ get_profile.Adresszeile }}{% endif %}">
+                  <input type="hidden" value="0" name="hidden_input_error_status_Adresszeile" id="hidden_input_error_status_Adresszeile">
+                  <input type="hidden" value="1" name="hidden_input_autocomplete_use_Adresszeile" id="hidden_input_autocomplete_use_Adresszeile">
                </div>
-               <span id="mynewmessage_Adresszeile" style="color:red"></span>
+               <span id="mynewmessage_Adresszeile" style="color:orange;"></span>
             </div>
 
              <input type="hidden" name="streetName" id="englishInput_streetName">
@@ -219,7 +222,7 @@
          </div>
          <span id="myElement" style="color:red;"></span>
          <div class="form-group" id="submit_button" style="margin-top:10px;">
-            <button type="submit">Reparatur anfragen</button>
+            <button type="submit" >Reparatur anfragen</button>
          </div>
       </form>
    </div>
@@ -249,53 +252,78 @@ $(document).ready(function () {
    let country = '';
    let state = '';
 
-   for (const component of near_place.address_components) {
-     if (component.types.includes('route')) {
-       streetName = component.long_name;
-     } else if (component.types.includes('street_number')) {
-       houseNumber = component.long_name;
-     } else if (component.types.includes('locality')) {
-       city = component.long_name;
-     } else if (component.types.includes('postal_code')) {
-       postalCode = component.long_name;
-     } else if (component.types.includes('country')) {
-       country = component.long_name;
-     } else if (component.types.includes('administrative_area_level_1')) {
-       state = component.long_name;
-     }
+   try {
+     for (const component of near_place.address_components) {
+        if (component.types.includes('route')) {
+          streetName = component.long_name;
+        } else if (component.types.includes('street_number')) {
+          houseNumber = component.long_name;
+        } else if (component.types.includes('locality')) {
+          city = component.long_name;
+        } else if (component.types.includes('postal_code')) {
+          postalCode = component.long_name;
+        } else if (component.types.includes('country')) {
+          country = component.long_name;
+        } else if (component.types.includes('administrative_area_level_1')) {
+          state = component.long_name;
+        }
+      }
+
+      console.log('Street Name:', streetName);
+      console.log('House Number:', houseNumber);
+      console.log('City:', city);
+      console.log('Postal Code:', postalCode);
+      console.log('Country:', country);
+      console.log('State:', state);
+
+      document.getElementById("hidden_input_error_status_Adresszeile").value = 0;
+      document.getElementById("hidden_input_autocomplete_use_Adresszeile").value = 0;
+
+      if (streetName == ""){
+         console.log('Need Straßenname');
+         document.getElementById('mynewmessage_Adresszeile').innerHTML = `Need Straßenname`;
+         document.getElementById("myElement").textContent = `Need Straßenname`;
+         document.getElementById("hidden_input_error_status_Adresszeile").value = 1;
+      }
+      else if (houseNumber == ""){
+         console.log('Need Hausnummer');
+         document.getElementById('mynewmessage_Adresszeile').innerHTML = `Need Hausnummer`;
+         document.getElementById("myElement").textContent = `Need Hausnummer`;
+         document.getElementById("hidden_input_error_status_Adresszeile").value = 1;
+      }
+      else if (postalCode == ""){
+         console.log('Need Postleitzahl');
+         document.getElementById('mynewmessage_Adresszeile').innerHTML = `Need Postleitzahl`;
+         document.getElementById("myElement").textContent = `Need Postleitzahl`;
+         document.getElementById("hidden_input_error_status_Adresszeile").value = 1;
+      }else{
+         console.log('Address is ok');
+         document.getElementById('mynewmessage_Adresszeile').innerHTML = "";
+         document.getElementById("myElement").textContent = "";
+         document.getElementById("hidden_input_error_status_Adresszeile").value = 0;
+
+         var hidden_input_error_status_vorname = document.getElementById("hidden_input_error_status_vorname").value;
+         var hidden_input_error_status_nachname = document.getElementById("hidden_input_error_status_nachname").value;
+         //var hidden_input_error_status_ort = document.getElementById("hidden_input_error_status_ort").value;
+         var hidden_input_error_status_Adresszeile = document.getElementById("hidden_input_error_status_Adresszeile").value;
+         //var hidden_input_error_status_Stadt = document.getElementById("hidden_input_error_status_Stadt").value;
+         if (hidden_input_error_status_vorname == 0 && hidden_input_error_status_nachname == 0){
+            document.getElementById('submit_button').innerHTML = `<button type="submit">Reparatur anfragen</button>`;
+         }
+      }
+
+      document.getElementById('englishInput_streetName').value = streetName;
+      document.getElementById('englishInput_Hausnummer').value = houseNumber;
+      document.getElementById('englishInput_Stadt').value = city;
+      document.getElementById('englishInput_Postleitzahl').value = postalCode;
+      document.getElementById('englishInput_country').value = country;
+      document.getElementById('englishInput_state').value = state;
+   } catch (error) {
+     console.log('Error: did not choose auto-complete');
+     document.getElementById('mynewmessage_Adresszeile').style.color = 'red';
    }
 
-   console.log('Street Name:', streetName);
-   console.log('House Number:', houseNumber);
-   console.log('City:', city);
-   console.log('Postal Code:', postalCode);
-   console.log('Country:', country);
-   console.log('State:', state);
 
-   if (streetName == ""){
-      console.log('Need Straßenname');
-      document.getElementById('mynewmessage_Adresszeile').innerHTML = `Need Straßenname`;
-   }
-   else if (houseNumber == ""){
-      console.log('Need Hausnummer');
-      document.getElementById('mynewmessage_Adresszeile').innerHTML = `Need Hausnummer`;
-   }
-   else if (postalCode == ""){
-      console.log('Need Postleitzahl');
-      document.getElementById('mynewmessage_Adresszeile').innerHTML = `Need Postleitzahl`;
-   }else{
-      console.log('Address is ok');
-      document.getElementById('mynewmessage_Adresszeile').innerHTML = "";
-   }
-
-
-
-   document.getElementById('englishInput_streetName').value = streetName;
-   document.getElementById('englishInput_Hausnummer').value = houseNumber;
-   document.getElementById('englishInput_Stadt').value = city;
-   document.getElementById('englishInput_Postleitzahl').value = postalCode;
-   document.getElementById('englishInput_country').value = country;
-   document.getElementById('englishInput_state').value = state;
 
  });
 });
@@ -327,32 +355,61 @@ function protector_cost_function(value){
 
 
 function checkInputEnglish(input_id) {
-    var inputElement = document.getElementById("englishInput"+"_"+input_id);
-    var errorMessageElement = document.getElementById("mynewmessage"+"_"+input_id);
-    var errorMessageElement2 = document.getElementById("myElement");
+    if(input_id == 'Adresszeile'){
+       var inputElement = document.getElementById("englishInput"+"_"+input_id);
+       var errorMessageElement = document.getElementById("mynewmessage"+"_"+input_id);
+       var errorMessageElement2 = document.getElementById("myElement");
 
-
-    var inputValue = inputElement.value;
-    var sanitizedValue = inputValue.replace(/[^a-zA-ZöäüÖÄÜß\s]/g, "");
-
-    if (sanitizedValue !== inputValue) {
-         document.getElementById("hidden_input_error_status_"+input_id).value = 1;
-        errorMessageElement.textContent = input_id+" Fehler : Schreiben Sie bitte alle Sonderzeichen aus.";
-        errorMessageElement2.textContent = input_id +" Fehler : Schreiben Sie bitte alle Sonderzeichen aus.";
-        document.getElementById('submit_button').innerHTML = `<button type="submit" style="background-color:#F52C0D;" disabled>Bitte verwenden Sie das richtige Format</button>`;
-    } else {
-         document.getElementById("hidden_input_error_status_"+input_id).value = 0;
-        errorMessageElement.textContent = "";
-        errorMessageElement2.textContent = "";
-        var hidden_input_error_status_vorname = document.getElementById("hidden_input_error_status_vorname").value;
-       var hidden_input_error_status_nachname = document.getElementById("hidden_input_error_status_nachname").value;
-       //var hidden_input_error_status_ort = document.getElementById("hidden_input_error_status_ort").value;
-       //var hidden_input_error_status_Adresszeile = document.getElementById("hidden_input_error_status_Adresszeile").value;
-       //var hidden_input_error_status_Stadt = document.getElementById("hidden_input_error_status_Stadt").value;
-       if (hidden_input_error_status_vorname == 0 && hidden_input_error_status_nachname == 0){
-       document.getElementById('submit_button').innerHTML = `<button type="submit">Reparatur anfragen</button>`;
+       var hidden_input_autocomplete_use_Adresszeile = document.getElementById("hidden_input_autocomplete_use_Adresszeile");
+       if (hidden_input_autocomplete_use_Adresszeile !== 0) {
+            document.getElementById("hidden_input_error_status_"+input_id).value = 1;
+           errorMessageElement.textContent = input_id+` Fehler : Bitte wählen Sie die Adresse aus der Auswahlliste aus.`;
+           errorMessageElement2.textContent = input_id +" Fehler : Bitte wählen Sie die Adresse aus der Auswahlliste aus.";
+           document.getElementById('submit_button').innerHTML = `<button type="submit" style="background-color:#F52C0D;" disabled>Bitte verwenden Sie das richtige Format</button>`;
        }
+       else {
+           document.getElementById("hidden_input_error_status_"+input_id).value = 0;
+           errorMessageElement.textContent = "";
+           errorMessageElement2.textContent = "";
+           var hidden_input_error_status_vorname = document.getElementById("hidden_input_error_status_vorname").value;
+           var hidden_input_error_status_nachname = document.getElementById("hidden_input_error_status_nachname").value;
+           //var hidden_input_error_status_ort = document.getElementById("hidden_input_error_status_ort").value;
+           var hidden_input_error_status_Adresszeile = document.getElementById("hidden_input_error_status_Adresszeile").value;
+           //var hidden_input_error_status_Stadt = document.getElementById("hidden_input_error_status_Stadt").value;
+           if (hidden_input_error_status_vorname == 0 && hidden_input_error_status_nachname == 0){
+           document.getElementById('submit_button').innerHTML = `<button type="submit">Reparatur anfragen</button>`;
+          }
+       }
+    }
 
+    else{
+       var inputElement = document.getElementById("englishInput"+"_"+input_id);
+       var errorMessageElement = document.getElementById("mynewmessage"+"_"+input_id);
+       var errorMessageElement2 = document.getElementById("myElement");
+
+       var inputValue = inputElement.value;
+       var sanitizedValue = inputValue.replace(/[^a-zA-ZöäüÖÄÜß\s]/g, "");
+
+       if (sanitizedValue !== inputValue) {
+           document.getElementById("hidden_input_error_status_"+input_id).value = 1;
+           errorMessageElement.textContent = input_id+" Fehler : Schreiben Sie bitte alle Sonderzeichen aus.";
+           errorMessageElement2.textContent = input_id +" Fehler : Schreiben Sie bitte alle Sonderzeichen aus.";
+           document.getElementById('submit_button').innerHTML = `<button type="submit" style="background-color:#F52C0D;" disabled>Bitte verwenden Sie das richtige Format</button>`;
+       } else {
+           document.getElementById("hidden_input_error_status_"+input_id).value = 0;
+           errorMessageElement.textContent = "";
+           errorMessageElement2.textContent = "";
+           var hidden_input_error_status_vorname = document.getElementById("hidden_input_error_status_vorname").value;
+          var hidden_input_error_status_nachname = document.getElementById("hidden_input_error_status_nachname").value;
+          //var hidden_input_error_status_ort = document.getElementById("hidden_input_error_status_ort").value;
+          var hidden_input_error_status_Adresszeile = document.getElementById("hidden_input_error_status_Adresszeile").value;
+          //var hidden_input_error_status_Stadt = document.getElementById("hidden_input_error_status_Stadt").value;
+          console.log();
+          if (hidden_input_error_status_vorname == 0 && hidden_input_error_status_nachname == 0 && hidden_input_error_status_Adresszeile == 0){
+          document.getElementById('submit_button').innerHTML = `<button type="submit">Reparatur anfragen</button>`;
+          }
+
+       }
     }
 }
 </script>
